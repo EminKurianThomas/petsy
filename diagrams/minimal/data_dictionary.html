@@ -1,0 +1,618 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body {
+                background: #ffffff;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+                color: #000000;
+                display: flex;
+                justify-content: center;
+                padding: 30px 40px;
+            }
+            .container {
+                width: 900px;
+            }
+            .doc-header {
+                text-align: center;
+                margin-bottom: 22px;
+            }
+            .doc-title {
+                font-size: 17px;
+                font-weight: 800;
+                letter-spacing: 0.5px;
+                color: #000000;
+                margin-bottom: 3px;
+            }
+            .doc-sub {
+                font-size: 10px;
+                font-style: italic;
+                color: #555555;
+            }
+            .table-block {
+                margin-bottom: 18px;
+            }
+            .table-title {
+                font-size: 11px;
+                font-weight: 800;
+                color: #000000;
+                margin-bottom: 4px;
+                letter-spacing: 0.2px;
+            }
+            .spec-table {
+                width: 100%;
+                border-collapse: collapse;
+                border: 1px solid #71717a;
+                font-size: 9.2px;
+            }
+            .spec-table th {
+                border: 1px solid #71717a;
+                padding: 4px 6px;
+                font-weight: 800;
+                font-size: 9.5px;
+                text-align: center;
+                background: #ffffff;
+                color: #000000;
+            }
+            .spec-table td {
+                border: 1px solid #71717a;
+                padding: 3px 6px;
+                line-height: 1.25;
+            }
+            .col-name {
+                font-weight: 700;
+                font-family: 'Segoe UI', Arial, sans-serif;
+            }
+            .col-type {
+                font-family: 'Segoe UI', Arial, sans-serif;
+                font-size: 8.8px;
+                letter-spacing: -0.1px;
+            }
+            .col-const {
+                font-family: 'Segoe UI', Arial, sans-serif;
+                font-size: 8.8px;
+                letter-spacing: -0.1px;
+            }
+            .col-desc {
+                font-family: 'Segoe UI', Arial, sans-serif;
+                font-size: 9px;
+                color: #111111;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="doc-header">
+                <div class="doc-title">3.2 PETSY — DATA DICTIONARY &amp; TABLE SPECIFICATIONS</div>
+                <div class="doc-sub">Comprehensive Column Constraints, Data Types, and Schema Rules</div>
+            </div>
+            
+            <div class="table-block">
+                <div class="table-title">TABLE 1: users (User / Customer Entity — D1 Users)</div>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 17%;">Column Name</th>
+                            <th style="width: 17%;">Data Type</th>
+                            <th style="width: 19%;">Constraint</th>
+                            <th style="width: 47%;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                <tr>
+                    <td class="col-name">id</td>
+                    <td class="col-type">UUID / VARCHAR(64)</td>
+                    <td class="col-const">PRIMARY KEY</td>
+                    <td class="col-desc">Unique user identifier (Firebase Auth UID)</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">name</td>
+                    <td class="col-type">VARCHAR(100)</td>
+                    <td class="col-const">NOT NULL</td>
+                    <td class="col-desc">Full name of the customer, owner, or admin</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">email</td>
+                    <td class="col-type">VARCHAR(150)</td>
+                    <td class="col-const">UNIQUE, NOT NULL</td>
+                    <td class="col-desc">Registered account email address</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">role</td>
+                    <td class="col-type">VARCHAR(20)</td>
+                    <td class="col-const">DEFAULT 'customer'</td>
+                    <td class="col-desc">System role: customer, admin, or caregiver</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">active_pet_id</td>
+                    <td class="col-type">VARCHAR(64)</td>
+                    <td class="col-const">NULLABLE</td>
+                    <td class="col-desc">Foreign key pointing to currently active pet</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">theme_pref</td>
+                    <td class="col-type">VARCHAR(20)</td>
+                    <td class="col-const">DEFAULT 'system'</td>
+                    <td class="col-desc">UI theme preference: light, dark, or system</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">avatar_url</td>
+                    <td class="col-type">TEXT</td>
+                    <td class="col-const">NULLABLE</td>
+                    <td class="col-desc">Profile picture storage URI / cloud URL</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">created_at</td>
+                    <td class="col-type">TIMESTAMPTZ</td>
+                    <td class="col-const">DEFAULT NOW()</td>
+                    <td class="col-desc">Account creation timestamp</td>
+                </tr>
+            
+                    </tbody>
+                </table>
+            </div>
+        
+            <div class="table-block">
+                <div class="table-title">TABLE 2: pets (Pet Profile Entity — D2 Pets)</div>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 17%;">Column Name</th>
+                            <th style="width: 17%;">Data Type</th>
+                            <th style="width: 19%;">Constraint</th>
+                            <th style="width: 47%;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                <tr>
+                    <td class="col-name">id</td>
+                    <td class="col-type">UUID / VARCHAR(64)</td>
+                    <td class="col-const">PRIMARY KEY</td>
+                    <td class="col-desc">Unique pet identifier (pet_id)</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">user_id</td>
+                    <td class="col-type">UUID / VARCHAR(64)</td>
+                    <td class="col-const">FOREIGN KEY</td>
+                    <td class="col-desc">References users(id) ON DELETE CASCADE</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">name</td>
+                    <td class="col-type">VARCHAR(100)</td>
+                    <td class="col-const">NOT NULL</td>
+                    <td class="col-desc">Display name of the pet</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">species</td>
+                    <td class="col-type">VARCHAR(50)</td>
+                    <td class="col-const">NOT NULL</td>
+                    <td class="col-desc">Primary species categorization (e.g. Dog, Cat, Bird)</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">breed</td>
+                    <td class="col-type">VARCHAR(100)</td>
+                    <td class="col-const">NOT NULL</td>
+                    <td class="col-desc">Pedigree or breed specification</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">gender</td>
+                    <td class="col-type">VARCHAR(20)</td>
+                    <td class="col-const">NOT NULL</td>
+                    <td class="col-desc">Sex of the pet (Male / Female)</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">age</td>
+                    <td class="col-type">VARCHAR(20)</td>
+                    <td class="col-const">NOT NULL</td>
+                    <td class="col-desc">Formatted pet age string or birthday reference</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">weight</td>
+                    <td class="col-type">NUMERIC(5,2)</td>
+                    <td class="col-const">NOT NULL</td>
+                    <td class="col-desc">Current recorded weight in kilograms</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">weight_unit</td>
+                    <td class="col-type">VARCHAR(10)</td>
+                    <td class="col-const">DEFAULT 'kg'</td>
+                    <td class="col-desc">Standard measurement unit (kg / lbs)</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">emoji</td>
+                    <td class="col-type">VARCHAR(10)</td>
+                    <td class="col-const">DEFAULT '🐶'</td>
+                    <td class="col-desc">Visual avatar emoji identifier</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">microchip</td>
+                    <td class="col-type">VARCHAR(50)</td>
+                    <td class="col-const">NULLABLE</td>
+                    <td class="col-desc">Official RFID microchip identification code</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">insurance</td>
+                    <td class="col-type">VARCHAR(100)</td>
+                    <td class="col-const">NULLABLE</td>
+                    <td class="col-desc">Pet insurance policy provider and certificate ID</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">emergency_vet</td>
+                    <td class="col-type">TEXT</td>
+                    <td class="col-const">NULLABLE</td>
+                    <td class="col-desc">Designated emergency veterinary contact / clinic info</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">created_at</td>
+                    <td class="col-type">TIMESTAMPTZ</td>
+                    <td class="col-const">DEFAULT NOW()</td>
+                    <td class="col-desc">Pet profile registration timestamp</td>
+                </tr>
+            
+                    </tbody>
+                </table>
+            </div>
+        
+            <div class="table-block">
+                <div class="table-title">TABLE 3: reminders (Alerts & Reminders Entity — D3 Reminders)</div>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 17%;">Column Name</th>
+                            <th style="width: 17%;">Data Type</th>
+                            <th style="width: 19%;">Constraint</th>
+                            <th style="width: 47%;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                <tr>
+                    <td class="col-name">id</td>
+                    <td class="col-type">UUID / VARCHAR(64)</td>
+                    <td class="col-const">PRIMARY KEY</td>
+                    <td class="col-desc">Unique reminder identifier (reminder_id)</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">pet_id</td>
+                    <td class="col-type">UUID / VARCHAR(64)</td>
+                    <td class="col-const">FOREIGN KEY</td>
+                    <td class="col-desc">References pets(id) ON DELETE CASCADE</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">user_id</td>
+                    <td class="col-type">UUID / VARCHAR(64)</td>
+                    <td class="col-const">FOREIGN KEY</td>
+                    <td class="col-desc">References users(id) (Alert creator)</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">category</td>
+                    <td class="col-type">VARCHAR(50)</td>
+                    <td class="col-const">NOT NULL</td>
+                    <td class="col-desc">Category: vaccine, medication, vet, grooming, food</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">title</td>
+                    <td class="col-type">VARCHAR(150)</td>
+                    <td class="col-const">NOT NULL</td>
+                    <td class="col-desc">Reminder task headline / procedure name</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">due_date</td>
+                    <td class="col-type">VARCHAR(50)</td>
+                    <td class="col-const">NOT NULL</td>
+                    <td class="col-desc">Scheduled due date string or timestamp</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">recurring</td>
+                    <td class="col-type">VARCHAR(30)</td>
+                    <td class="col-const">DEFAULT 'None'</td>
+                    <td class="col-desc">Recurrence pattern: None, Daily, Weekly, Monthly, Yearly</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">status</td>
+                    <td class="col-type">VARCHAR(20)</td>
+                    <td class="col-const">DEFAULT 'upcoming'</td>
+                    <td class="col-desc">Lifecycle status: upcoming, due, overdue, completed</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">notes</td>
+                    <td class="col-type">TEXT</td>
+                    <td class="col-const">NULLABLE</td>
+                    <td class="col-desc">Dosage, clinic location, or administration notes</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">created_at</td>
+                    <td class="col-type">TIMESTAMPTZ</td>
+                    <td class="col-const">DEFAULT NOW()</td>
+                    <td class="col-desc">Reminder schedule creation timestamp</td>
+                </tr>
+            
+                    </tbody>
+                </table>
+            </div>
+        
+            <div class="table-block">
+                <div class="table-title">TABLE 4: records (Medical & Health History Entity — D4 Records)</div>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 17%;">Column Name</th>
+                            <th style="width: 17%;">Data Type</th>
+                            <th style="width: 19%;">Constraint</th>
+                            <th style="width: 47%;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                <tr>
+                    <td class="col-name">id</td>
+                    <td class="col-type">UUID / VARCHAR(64)</td>
+                    <td class="col-const">PRIMARY KEY</td>
+                    <td class="col-desc">Unique health record identifier (record_id)</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">pet_id</td>
+                    <td class="col-type">UUID / VARCHAR(64)</td>
+                    <td class="col-const">FOREIGN KEY</td>
+                    <td class="col-desc">References pets(id) ON DELETE CASCADE</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">user_id</td>
+                    <td class="col-type">UUID / VARCHAR(64)</td>
+                    <td class="col-const">FOREIGN KEY</td>
+                    <td class="col-desc">References users(id) (Record author)</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">type</td>
+                    <td class="col-type">VARCHAR(50)</td>
+                    <td class="col-const">NOT NULL</td>
+                    <td class="col-desc">Clinical tab: vaccinations, medications, surgeries, visits</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">title</td>
+                    <td class="col-type">VARCHAR(150)</td>
+                    <td class="col-const">NOT NULL</td>
+                    <td class="col-desc">Diagnosis headline, vaccine name, or clinic visit</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">meta</td>
+                    <td class="col-type">TEXT</td>
+                    <td class="col-const">NOT NULL</td>
+                    <td class="col-desc">Clinical notes, medication dosages, or doctor remarks</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">doctor</td>
+                    <td class="col-type">VARCHAR(100)</td>
+                    <td class="col-const">NULLABLE</td>
+                    <td class="col-desc">Attending licensed veterinarian or clinic name</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">attachment_url</td>
+                    <td class="col-type">TEXT</td>
+                    <td class="col-const">NULLABLE</td>
+                    <td class="col-desc">Attached diagnostic document or certificate cloud URL</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">record_date</td>
+                    <td class="col-type">TIMESTAMPTZ</td>
+                    <td class="col-const">DEFAULT NOW()</td>
+                    <td class="col-desc">Clinical administration date</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">created_at</td>
+                    <td class="col-type">TIMESTAMPTZ</td>
+                    <td class="col-const">DEFAULT NOW()</td>
+                    <td class="col-desc">Medical log entry timestamp</td>
+                </tr>
+            
+                    </tbody>
+                </table>
+            </div>
+        
+            <div class="table-block">
+                <div class="table-title">TABLE 5: weight_logs (Growth & Weight Tracking Entity — D5 Weight Logs)</div>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 17%;">Column Name</th>
+                            <th style="width: 17%;">Data Type</th>
+                            <th style="width: 19%;">Constraint</th>
+                            <th style="width: 47%;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                <tr>
+                    <td class="col-name">id</td>
+                    <td class="col-type">UUID / VARCHAR(64)</td>
+                    <td class="col-const">PRIMARY KEY</td>
+                    <td class="col-desc">Unique weight entry identifier (log_id)</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">pet_id</td>
+                    <td class="col-type">UUID / VARCHAR(64)</td>
+                    <td class="col-const">FOREIGN KEY</td>
+                    <td class="col-desc">References pets(id) ON DELETE CASCADE</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">user_id</td>
+                    <td class="col-type">UUID / VARCHAR(64)</td>
+                    <td class="col-const">FOREIGN KEY</td>
+                    <td class="col-desc">References users(id) (Pet owner)</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">weight</td>
+                    <td class="col-type">NUMERIC(5,2)</td>
+                    <td class="col-const">NOT NULL</td>
+                    <td class="col-desc">Recorded weight measurement value in kg</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">weight_unit</td>
+                    <td class="col-type">VARCHAR(10)</td>
+                    <td class="col-const">DEFAULT 'kg'</td>
+                    <td class="col-desc">Weight unit metric specification</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">evaluation</td>
+                    <td class="col-type">VARCHAR(50)</td>
+                    <td class="col-const">NULLABLE</td>
+                    <td class="col-desc">Growth evaluation: Underweight, Ideal, Overweight</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">food_plan</td>
+                    <td class="col-type">TEXT</td>
+                    <td class="col-const">NULLABLE</td>
+                    <td class="col-desc">Automated nutritional recommendations based on weight</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">exercise_plan</td>
+                    <td class="col-type">TEXT</td>
+                    <td class="col-const">NULLABLE</td>
+                    <td class="col-desc">Recommended daily activity and exercise target</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">logged_at</td>
+                    <td class="col-type">TIMESTAMPTZ</td>
+                    <td class="col-const">DEFAULT NOW()</td>
+                    <td class="col-desc">Measurement timestamp for growth charts</td>
+                </tr>
+            
+                    </tbody>
+                </table>
+            </div>
+        
+            <div class="table-block">
+                <div class="table-title">TABLE 6: system_audit (Master Audit & Admin Logs — Admin Managed)</div>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 17%;">Column Name</th>
+                            <th style="width: 17%;">Data Type</th>
+                            <th style="width: 19%;">Constraint</th>
+                            <th style="width: 47%;">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                <tr>
+                    <td class="col-name">id</td>
+                    <td class="col-type">UUID / VARCHAR(64)</td>
+                    <td class="col-const">PRIMARY KEY</td>
+                    <td class="col-desc">Master audit event identifier (log_id)</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">admin_id</td>
+                    <td class="col-type">UUID / VARCHAR(64)</td>
+                    <td class="col-const">FOREIGN KEY</td>
+                    <td class="col-desc">References users(id) (Admin operator)</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">action_type</td>
+                    <td class="col-type">VARCHAR(50)</td>
+                    <td class="col-const">NOT NULL</td>
+                    <td class="col-desc">Audited operation: USER_ROLE_MOD, PET_DELETE, EXPORT</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">target_user_id</td>
+                    <td class="col-type">UUID / VARCHAR(64)</td>
+                    <td class="col-const">NULLABLE</td>
+                    <td class="col-desc">References target affected users(id)</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">target_pet_id</td>
+                    <td class="col-type">UUID / VARCHAR(64)</td>
+                    <td class="col-const">NULLABLE</td>
+                    <td class="col-desc">References target affected pets(id)</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">details</td>
+                    <td class="col-type">TEXT</td>
+                    <td class="col-const">NOT NULL</td>
+                    <td class="col-desc">Audit description payload and state changes</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">ip_address</td>
+                    <td class="col-type">VARCHAR(50)</td>
+                    <td class="col-const">NULLABLE</td>
+                    <td class="col-desc">Client network IP address of operator</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">status</td>
+                    <td class="col-type">VARCHAR(20)</td>
+                    <td class="col-const">DEFAULT 'SUCCESS'</td>
+                    <td class="col-desc">Execution status: SUCCESS, DENIED, or ERROR</td>
+                </tr>
+            
+                <tr>
+                    <td class="col-name">created_at</td>
+                    <td class="col-type">TIMESTAMPTZ</td>
+                    <td class="col-const">DEFAULT NOW()</td>
+                    <td class="col-desc">Immutable system audit timestamp</td>
+                </tr>
+            
+                    </tbody>
+                </table>
+            </div>
+        
+        </div>
+    </body>
+    </html>
+    
