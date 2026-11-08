@@ -5,7 +5,9 @@
 
 'use strict';
 
-const esc = window.esc || ((str) => String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'));
+var esc = window.esc = window.esc || function(str) {
+  return String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+};
 
 // ─── NUTRITIONAL DATABASE — Commercial Brands (India) ─────────────────────────
 const MARKET_FOODS = {
