@@ -1,0 +1,9 @@
+node_modules/
+.env
+*.db
+uploads/
+user_prompt.txt
+user_prompt_full.txt
+
+
+.vercel
