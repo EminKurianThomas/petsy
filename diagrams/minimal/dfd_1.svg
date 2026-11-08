@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1380 1074" width="1380" height="1074">
+    <defs>
+        <style>
+            .header-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 15px; font-weight: bold; fill: #111111; text-anchor: middle; }
+            .header-sub { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; font-weight: 600; fill: #555555; text-anchor: middle; letter-spacing: 0.5px; }
+            .header-main { font-family: 'Segoe UI', Arial, sans-serif; font-size: 19px; font-weight: 800; fill: #000000; text-anchor: middle; letter-spacing: 0.5px; }
+            .header-proj { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; font-style: italic; fill: #444444; text-anchor: middle; }
+            
+            .box-rect { fill: #ffffff; stroke: #111111; stroke-width: 1.5; rx: 4; }
+            .box-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #111111; text-anchor: middle; }
+            .box-sub { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; fill: #555555; text-anchor: middle; }
+            
+            .proc-circle { fill: #ffffff; stroke: #111111; stroke-width: 1.5; }
+            .proc-num { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13.5px; font-weight: bold; fill: #111111; text-anchor: middle; }
+            .proc-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10.5px; font-weight: 600; fill: #111111; text-anchor: middle; }
+            .proc-sub { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9.5px; fill: #333333; text-anchor: middle; }
+
+            .db-path-line { stroke: #111111; stroke-width: 1.5; fill: none; }
+            .db-id-line { stroke: #111111; stroke-width: 1.5; }
+            .db-id { font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #111111; text-anchor: middle; }
+            .db-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11.5px; font-weight: bold; fill: #111111; }
+            .db-path { font-family: 'Segoe UI', 'Courier New', monospace; font-size: 9.5px; fill: #0284c7; }
+
+            .arrow-line { stroke: #111111; stroke-width: 1.3; }
+            .arrow-text-top { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9px; font-weight: 500; fill: #111111; text-anchor: middle; }
+            .arrow-text-bot { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9px; font-weight: 500; fill: #111111; text-anchor: middle; }
+
+            .branch-line { stroke: #0284c7; stroke-width: 1.5; fill: none; }
+            .branch-badge { fill: #f0f9ff; stroke: #0284c7; stroke-width: 1.2; rx: 3; }
+            .branch-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10.5px; font-weight: bold; fill: #0284c7; }
+            .branch-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: 600; font-style: italic; fill: #0284c7; }
+
+            .group-bracket { stroke: #7c3aed; stroke-width: 1.5; fill: none; }
+            .group-label { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10.5px; font-weight: bold; fill: #7c3aed; letter-spacing: 0.8px; }
+
+            .footer-line { stroke: #111111; stroke-width: 1.5; }
+            .footer-text1 { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10.5px; font-weight: 600; fill: #333333; text-anchor: middle; }
+            .footer-text2 { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9.5px; fill: #666666; text-anchor: middle; }
+        </style>
+
+        <!-- Arrowhead Markers -->
+        <marker id="arrow-right" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#111111" />
+        </marker>
+        <marker id="arrow-left" viewBox="0 0 10 10" refX="1.5" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 8.5 1.5 L 0 5 L 8.5 8.5 z" fill="#111111" />
+        </marker>
+        <marker id="branch-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#0284c7" />
+        </marker>
+    </defs>
+
+    <!-- Canvas Background -->
+    <rect width="1380" height="1074" fill="#ffffff" />
+
+    <!-- ══════════════════════════════════════════════════════════════════════ -->
+    <!-- HEADER -->
+    <!-- ══════════════════════════════════════════════════════════════════════ -->
+    <text x="690" y="32" class="header-title">Kristu Jayanti College (Autonomous) · Bengaluru</text>
+    <text x="690" y="48" class="header-sub">DEPARTMENT OF COMPUTER SCIENCE — ACADEMIC PROJECT DOCUMENTATION</text>
+    <text x="690" y="74" class="header-main">3.3.2 DATA FLOW DIAGRAM (DFD) — LEVEL 1</text>
+    <text x="690" y="92" class="header-proj">Project: Petsy (Pet Care &amp; Health Management Platform) · Teacher Model Implementation</text>
+    <line x1="50" y1="104" x2="1330" y2="104" stroke="#111111" stroke-width="1.8" />
+
+    <!-- row1 : Module Box -->
+    <rect x="185" y="151" width="195" height="48" class="box-rect" />
+    <text x="282.5" y="171" class="box-title">Login with user type</text>
+    <text x="282.5" y="187" class="box-sub">Customer & Admin</text>
+
+    <!-- row1 : Arrows Module <-> Process -->
+    <!-- Top Arrow: Module -> Process (Request) -->
+    <line x1="380" y1="158" x2="648.3346666880007" y2="158" class="arrow-line" marker-end="url(#arrow-right)" />
+    <text x="514.1673333440003" y="153" class="arrow-text-top">Request (Credentials, Role)</text>
+
+    <!-- Bottom Arrow: Process -> Module (Response) -->
+    <line x1="648.3346666880007" y1="192" x2="380" y2="192" class="arrow-line" marker-end="url(#arrow-left)" />
+    <text x="514.1673333440003" y="204" class="arrow-text-bot">Response (Session Token, Role Grants)</text>
+
+    <!-- row1 : Process Circle -->
+    <circle cx="690" cy="175" r="45" class="proc-circle" />
+    <text x="690" y="163" class="proc-num">1.0</text>
+    <text x="690" y="178" class="proc-title">Authen</text>
+    <text x="690" y="192" class="proc-sub">(Verify Role)</text>
+
+    <!-- row1 : Arrows Process <-> Data Store -->
+    <!-- Top Arrow: Process -> DB (Request) -->
+    <line x1="731.6653333119993" y1="158" x2="995" y2="158" class="arrow-line" marker-end="url(#arrow-right)" />
+    <text x="863.3326666559997" y="153" class="arrow-text-top">Request (Verify Record)</text>
+
+    <!-- Bottom Arrow: DB -> Process (Response) -->
+    <line x1="995" y1="192" x2="731.6653333119993" y2="192" class="arrow-line" marker-end="url(#arrow-left)" />
+    <text x="863.3326666559997" y="204" class="arrow-text-bot">Response (Profile Record & UUID)</text>
+
+    <!-- row1 : Data Store (Gane-Sarson open-ended rectangle notation) -->
+    <g>
+        <!-- Top line, bottom line, left vertical line -->
+        <path d="M 1230 152 H 995 V 198 H 1230" class="db-path-line" />
+        <!-- Vertical divider line separating ID from Title -->
+        <line x1="1029" y1="152" x2="1029" y2="198" class="db-id-line" />
+        <!-- ID text -->
+        <text x="1012" y="180" class="db-id">D1</text>
+        <!-- Store Name and Path -->
+        <text x="1041" y="171" class="db-title">Login / Auth Store</text>
+        <text x="1041" y="187" class="db-path">public.profiles & auth.users</text>
+    </g>
+
+    <!-- row2 : Module Box -->
+    <rect x="185" y="310.3" width="195" height="48" class="box-rect" />
+    <text x="282.5" y="330.3" class="box-title">Admin Dash</text>
+    <text x="282.5" y="346.3" class="box-sub">[Admin Panel Module]</text>
+
+    <!-- row2 : Arrows Module <-> Process -->
+    <!-- Top Arrow: Module -> Process (Request) -->
+    <line x1="380" y1="317.3" x2="648.3346666880007" y2="317.3" class="arrow-line" marker-end="url(#arrow-right)" />
+    <text x="514.1673333440003" y="312.3" class="arrow-text-top">Request (View All Users & Manage System)</text>
+
+    <!-- Bottom Arrow: Process -> Module (Response) -->
+    <line x1="648.3346666880007" y1="351.3" x2="380" y2="351.3" class="arrow-line" marker-end="url(#arrow-left)" />
+    <text x="514.1673333440003" y="363.3" class="arrow-text-bot">Response (User Management & Stats Analytics)</text>
+
+    <!-- row2 : Process Circle -->
+    <circle cx="690" cy="334.3" r="45" class="proc-circle" />
+    <text x="690" y="322.3" class="proc-num">2.0</text>
+    <text x="690" y="337.3" class="proc-title">Admin User</text>
+    <text x="690" y="351.3" class="proc-sub">& System Mgmt</text>
+
+    <!-- row2 : Arrows Process <-> Data Store -->
+    <!-- Top Arrow: Process -> DB (Request) -->
+    <line x1="731.6653333119993" y1="317.3" x2="995" y2="317.3" class="arrow-line" marker-end="url(#arrow-right)" />
+    <text x="863.3326666559997" y="312.3" class="arrow-text-top">Request (Query All Registered User Profiles)</text>
+
+    <!-- Bottom Arrow: DB -> Process (Response) -->
+    <line x1="995" y1="351.3" x2="731.6653333119993" y2="351.3" class="arrow-line" marker-end="url(#arrow-left)" />
+    <text x="863.3326666559997" y="363.3" class="arrow-text-bot">Response (User Profiles, Email & Roles)</text>
+
+    <!-- row2 : Data Store (Gane-Sarson open-ended rectangle notation) -->
+    <g>
+        <!-- Top line, bottom line, left vertical line -->
+        <path d="M 1230 311.3 H 995 V 357.3 H 1230" class="db-path-line" />
+        <!-- Vertical divider line separating ID from Title -->
+        <line x1="1029" y1="311.3" x2="1029" y2="357.3" class="db-id-line" />
+        <!-- ID text -->
+        <text x="1012" y="339.3" class="db-id">D1</text>
+        <!-- Store Name and Path -->
+        <text x="1041" y="330.3" class="db-title">Users Store</text>
+        <text x="1041" y="346.3" class="db-path">public.users / /users/{uid}</text>
+    </g>
+
+    <!-- row3 : Module Box -->
+    <rect x="185" y="448.36" width="195" height="48" class="box-rect" />
+    <text x="282.5" y="468.36" class="box-title">Home Dash</text>
+    <text x="282.5" y="484.36" class="box-sub">[Customer Dashboard]</text>
+
+    <!-- row3 : Arrows Module <-> Process -->
+    <!-- Top Arrow: Module -> Process (Request) -->
+    <line x1="380" y1="455.36" x2="648.3346666880007" y2="455.36" class="arrow-line" marker-end="url(#arrow-right)" />
+    <text x="514.1673333440003" y="450.36" class="arrow-text-top">Request (View Active Pet & Reminders)</text>
+
+    <!-- Bottom Arrow: Process -> Module (Response) -->
+    <line x1="648.3346666880007" y1="489.36" x2="380" y2="489.36" class="arrow-line" marker-end="url(#arrow-left)" />
+    <text x="514.1673333440003" y="501.36" class="arrow-text-bot">Response (Pet Cards, Weight Preview & Tips)</text>
+
+    <!-- row3 : Process Circle -->
+    <circle cx="690" cy="472.36" r="45" class="proc-circle" />
+    <text x="690" y="460.36" class="proc-num">3.0</text>
+    <text x="690" y="475.36" class="proc-title">Home Dashboard</text>
+    <text x="690" y="489.36" class="proc-sub">& Active Pet</text>
+
+    <!-- row3 : Arrows Process <-> Data Store -->
+    <!-- Top Arrow: Process -> DB (Request) -->
+    <line x1="731.6653333119993" y1="455.36" x2="995" y2="455.36" class="arrow-line" marker-end="url(#arrow-right)" />
+    <text x="863.3326666559997" y="450.36" class="arrow-text-top">Request (Read Active Pet & Upcoming Alerts)</text>
+
+    <!-- Bottom Arrow: DB -> Process (Response) -->
+    <line x1="995" y1="489.36" x2="731.6653333119993" y2="489.36" class="arrow-line" marker-end="url(#arrow-left)" />
+    <text x="863.3326666559997" y="501.36" class="arrow-text-bot">Response (Pet Details, Weight Logs, Care Tips)</text>
+
+    <!-- row3 : Data Store (Gane-Sarson open-ended rectangle notation) -->
+    <g>
+        <!-- Top line, bottom line, left vertical line -->
+        <path d="M 1230 449.36 H 995 V 495.36 H 1230" class="db-path-line" />
+        <!-- Vertical divider line separating ID from Title -->
+        <line x1="1029" y1="449.36" x2="1029" y2="495.36" class="db-id-line" />
+        <!-- ID text -->
+        <text x="1012" y="477.36" class="db-id">D2</text>
+        <!-- Store Name and Path -->
+        <text x="1041" y="468.36" class="db-title">Pets Store</text>
+        <text x="1041" y="484.36" class="db-path">public.pets / /users/{uid}/pets</text>
+    </g>
+
+    <!-- row4 : Module Box -->
+    <rect x="185" y="566.36" width="195" height="48" class="box-rect" />
+    <text x="282.5" y="586.36" class="box-title">Pet Profile</text>
+    <text x="282.5" y="602.36" class="box-sub">[Pet Management Module]</text>
+
+    <!-- row4 : Arrows Module <-> Process -->
+    <!-- Top Arrow: Module -> Process (Request) -->
+    <line x1="380" y1="573.36" x2="648.3346666880007" y2="573.36" class="arrow-line" marker-end="url(#arrow-right)" />
+    <text x="514.1673333440003" y="568.36" class="arrow-text-top">Request (Add / Edit / Delete Pet, Log Weight)</text>
+
+    <!-- Bottom Arrow: Process -> Module (Response) -->
+    <line x1="648.3346666880007" y1="607.36" x2="380" y2="607.36" class="arrow-line" marker-end="url(#arrow-left)" />
+    <text x="514.1673333440003" y="619.36" class="arrow-text-bot">Response (Updated Pet List & Growth Chart)</text>
+
+    <!-- row4 : Process Circle -->
+    <circle cx="690" cy="590.36" r="45" class="proc-circle" />
+    <text x="690" y="578.36" class="proc-num">4.0</text>
+    <text x="690" y="593.36" class="proc-title">Pet Profile</text>
+    <text x="690" y="607.36" class="proc-sub">& Growth Logs</text>
+
+    <!-- row4 : Arrows Process <-> Data Store -->
+    <!-- Top Arrow: Process -> DB (Request) -->
+    <line x1="731.6653333119993" y1="573.36" x2="995" y2="573.36" class="arrow-line" marker-end="url(#arrow-right)" />
+    <text x="863.3326666559997" y="568.36" class="arrow-text-top">Request (Write / Update / Delete Pet Record)</text>
+
+    <!-- Bottom Arrow: DB -> Process (Response) -->
+    <line x1="995" y1="607.36" x2="731.6653333119993" y2="607.36" class="arrow-line" marker-end="url(#arrow-left)" />
+    <text x="863.3326666559997" y="619.36" class="arrow-text-bot">Response (Pet Record Saved / Updated / Deleted)</text>
+
+    <!-- row4 : Data Store (Gane-Sarson open-ended rectangle notation) -->
+    <g>
+        <!-- Top line, bottom line, left vertical line -->
+        <path d="M 1230 567.36 H 995 V 613.36 H 1230" class="db-path-line" />
+        <!-- Vertical divider line separating ID from Title -->
+        <line x1="1029" y1="567.36" x2="1029" y2="613.36" class="db-id-line" />
+        <!-- ID text -->
+        <text x="1012" y="595.36" class="db-id">D2</text>
+        <!-- Store Name and Path -->
+        <text x="1041" y="586.36" class="db-title">Pets Store</text>
+        <text x="1041" y="602.36" class="db-path">public.pets / /users/{uid}/pets</text>
+    </g>
+
+    <!-- row5 : Module Box -->
+    <rect x="185" y="684.3599999999999" width="195" height="48" class="box-rect" />
+    <text x="282.5" y="704.3599999999999" class="box-title">Reminders</text>
+    <text x="282.5" y="720.3599999999999" class="box-sub">[Reminders & Alerts Module]</text>
+
+    <!-- row5 : Arrows Module <-> Process -->
+    <!-- Top Arrow: Module -> Process (Request) -->
+    <line x1="380" y1="691.3599999999999" x2="648.3346666880007" y2="691.3599999999999" class="arrow-line" marker-end="url(#arrow-right)" />
+    <text x="514.1673333440003" y="686.3599999999999" class="arrow-text-top">Request (Create / Filter / Cycle Reminders)</text>
+
+    <!-- Bottom Arrow: Process -> Module (Response) -->
+    <line x1="648.3346666880007" y1="725.3599999999999" x2="380" y2="725.3599999999999" class="arrow-line" marker-end="url(#arrow-left)" />
+    <text x="514.1673333440003" y="737.3599999999999" class="arrow-text-bot">Response (Alert Notifications & Status Badges)</text>
+
+    <!-- row5 : Process Circle -->
+    <circle cx="690" cy="708.3599999999999" r="45" class="proc-circle" />
+    <text x="690" y="696.3599999999999" class="proc-num">5.0</text>
+    <text x="690" y="711.3599999999999" class="proc-title">Reminders</text>
+    <text x="690" y="725.3599999999999" class="proc-sub">& Due Alerts</text>
+
+    <!-- row5 : Arrows Process <-> Data Store -->
+    <!-- Top Arrow: Process -> DB (Request) -->
+    <line x1="731.6653333119993" y1="691.3599999999999" x2="995" y2="691.3599999999999" class="arrow-line" marker-end="url(#arrow-right)" />
+    <text x="863.3326666559997" y="686.3599999999999" class="arrow-text-top">Request (Insert / Update / Query Reminders)</text>
+
+    <!-- Bottom Arrow: DB -> Process (Response) -->
+    <line x1="995" y1="725.3599999999999" x2="731.6653333119993" y2="725.3599999999999" class="arrow-line" marker-end="url(#arrow-left)" />
+    <text x="863.3326666559997" y="737.3599999999999" class="arrow-text-bot">Response (Reminder Records & Due States)</text>
+
+    <!-- row5 : Data Store (Gane-Sarson open-ended rectangle notation) -->
+    <g>
+        <!-- Top line, bottom line, left vertical line -->
+        <path d="M 1230 685.3599999999999 H 995 V 731.3599999999999 H 1230" class="db-path-line" />
+        <!-- Vertical divider line separating ID from Title -->
+        <line x1="1029" y1="685.3599999999999" x2="1029" y2="731.3599999999999" class="db-id-line" />
+        <!-- ID text -->
+        <text x="1012" y="713.3599999999999" class="db-id">D3</text>
+        <!-- Store Name and Path -->
+        <text x="1041" y="704.3599999999999" class="db-title">Reminders Store</text>
+        <text x="1041" y="720.3599999999999" class="db-path">public.reminders / /reminders</text>
+    </g>
+
+    <!-- row6 : Module Box -->
+    <rect x="185" y="802.3599999999999" width="195" height="48" class="box-rect" />
+    <text x="282.5" y="822.3599999999999" class="box-title">Health Records</text>
+    <text x="282.5" y="838.3599999999999" class="box-sub">[Medical History Module]</text>
+
+    <!-- row6 : Arrows Module <-> Process -->
+    <!-- Top Arrow: Module -> Process (Request) -->
+    <line x1="380" y1="809.3599999999999" x2="648.3346666880007" y2="809.3599999999999" class="arrow-line" marker-end="url(#arrow-right)" />
+    <text x="514.1673333440003" y="804.3599999999999" class="arrow-text-top">Request (Add Record, Vaccines/Meds, Export)</text>
+
+    <!-- Bottom Arrow: Process -> Module (Response) -->
+    <line x1="648.3346666880007" y1="843.3599999999999" x2="380" y2="843.3599999999999" class="arrow-line" marker-end="url(#arrow-left)" />
+    <text x="514.1673333440003" y="855.3599999999999" class="arrow-text-bot">Response (Medical History View & PDF Export)</text>
+
+    <!-- row6 : Process Circle -->
+    <circle cx="690" cy="826.3599999999999" r="45" class="proc-circle" />
+    <text x="690" y="814.3599999999999" class="proc-num">6.0</text>
+    <text x="690" y="829.3599999999999" class="proc-title">Health Records</text>
+    <text x="690" y="843.3599999999999" class="proc-sub">& Medical Logs</text>
+
+    <!-- row6 : Arrows Process <-> Data Store -->
+    <!-- Top Arrow: Process -> DB (Request) -->
+    <line x1="731.6653333119993" y1="809.3599999999999" x2="995" y2="809.3599999999999" class="arrow-line" marker-end="url(#arrow-right)" />
+    <text x="863.3326666559997" y="804.3599999999999" class="arrow-text-top">Request (Insert / Delete Record / Query Logs)</text>
+
+    <!-- Bottom Arrow: DB -> Process (Response) -->
+    <line x1="995" y1="843.3599999999999" x2="731.6653333119993" y2="843.3599999999999" class="arrow-line" marker-end="url(#arrow-left)" />
+    <text x="863.3326666559997" y="855.3599999999999" class="arrow-text-bot">Response (Vaccination & Clinic Entries)</text>
+
+    <!-- row6 : Data Store (Gane-Sarson open-ended rectangle notation) -->
+    <g>
+        <!-- Top line, bottom line, left vertical line -->
+        <path d="M 1230 803.3599999999999 H 995 V 849.3599999999999 H 1230" class="db-path-line" />
+        <!-- Vertical divider line separating ID from Title -->
+        <line x1="1029" y1="803.3599999999999" x2="1029" y2="849.3599999999999" class="db-id-line" />
+        <!-- ID text -->
+        <text x="1012" y="831.3599999999999" class="db-id">D4</text>
+        <!-- Store Name and Path -->
+        <text x="1041" y="822.3599999999999" class="db-title">Records Store</text>
+        <text x="1041" y="838.3599999999999" class="db-path">public.records / /records</text>
+    </g>
+
+    <!-- row7 : Module Box -->
+    <rect x="185" y="920.3599999999999" width="195" height="48" class="box-rect" />
+    <text x="282.5" y="940.3599999999999" class="box-title">Settings</text>
+    <text x="282.5" y="956.3599999999999" class="box-sub">[Settings & Preferences]</text>
+
+    <!-- row7 : Arrows Module <-> Process -->
+    <!-- Top Arrow: Module -> Process (Request) -->
+    <line x1="380" y1="927.3599999999999" x2="648.3346666880007" y2="927.3599999999999" class="arrow-line" marker-end="url(#arrow-right)" />
+    <text x="514.1673333440003" y="922.3599999999999" class="arrow-text-top">Request (Toggle Theme / Change Account / Logout)</text>
+
+    <!-- Bottom Arrow: Process -> Module (Response) -->
+    <line x1="648.3346666880007" y1="961.3599999999999" x2="380" y2="961.3599999999999" class="arrow-line" marker-end="url(#arrow-left)" />
+    <text x="514.1673333440003" y="973.3599999999999" class="arrow-text-bot">Response (Theme Applied / Session Revoked)</text>
+
+    <!-- row7 : Process Circle -->
+    <circle cx="690" cy="944.3599999999999" r="45" class="proc-circle" />
+    <text x="690" y="932.3599999999999" class="proc-num">7.0</text>
+    <text x="690" y="947.3599999999999" class="proc-title">Settings &</text>
+    <text x="690" y="961.3599999999999" class="proc-sub">User Account</text>
+
+    <!-- row7 : Arrows Process <-> Data Store -->
+    <!-- Top Arrow: Process -> DB (Request) -->
+    <line x1="731.6653333119993" y1="927.3599999999999" x2="995" y2="927.3599999999999" class="arrow-line" marker-end="url(#arrow-right)" />
+    <text x="863.3326666559997" y="922.3599999999999" class="arrow-text-top">Request (Clear Auth State & Revoke Session)</text>
+
+    <!-- Bottom Arrow: DB -> Process (Response) -->
+    <line x1="995" y1="961.3599999999999" x2="731.6653333119993" y2="961.3599999999999" class="arrow-line" marker-end="url(#arrow-left)" />
+    <text x="863.3326666559997" y="973.3599999999999" class="arrow-text-bot">Response (Session Cleared / Logout Confirmed)</text>
+
+    <!-- row7 : Data Store (Gane-Sarson open-ended rectangle notation) -->
+    <g>
+        <!-- Top line, bottom line, left vertical line -->
+        <path d="M 1230 921.3599999999999 H 995 V 967.3599999999999 H 1230" class="db-path-line" />
+        <!-- Vertical divider line separating ID from Title -->
+        <line x1="1029" y1="921.3599999999999" x2="1029" y2="967.3599999999999" class="db-id-line" />
+        <!-- ID text -->
+        <text x="1012" y="949.3599999999999" class="db-id">D1</text>
+        <!-- Store Name and Path -->
+        <text x="1041" y="940.3599999999999" class="db-title">Users Store</text>
+        <text x="1041" y="956.3599999999999" class="db-path">public.users / /users/{uid}</text>
+    </g>
+
+    <!-- Login Success Branching -->
+    <rect x="220" y="207" width="98" height="19" class="branch-badge" />
+    <text x="228" y="221" class="branch-text">login success:</text>
+
+    <!-- Cyan branching line from Login down to Admin & Customer -->
+    <path d="
+        M 220 216.5
+        H 55
+        V 334.3
+        H 185
+    " class="branch-line" marker-end="url(#branch-arrow)" />
+    <text x="61" y="328.3" class="branch-label">if admin login success:</text>
+
+    <path d="
+        M 55 334.3
+        V 472.36
+        H 185
+    " class="branch-line" marker-end="url(#branch-arrow)" />
+    <text x="61" y="466.36" class="branch-label">if customer login success:</text>
+
+    <!-- Customer Modules Grouping Bracket on Left -->
+    <path d="
+        M 175 450.36
+        H 163
+        V 966.3599999999999
+        H 175
+    " class="group-bracket" />
+    <text x="157" y="708.3599999999999" class="group-label" transform="rotate(-90 157 708.3599999999999)" text-anchor="middle">CUSTOMER MODULES</text>
+
+    <!-- FOOTER -->
+    <line x1="50" y1="1029" x2="1330" y2="1029" class="footer-line" />
+    <text x="690" y="1047" class="footer-text1">Kristu Jayanti College Autonomous · Bengaluru | Department of Computer Science | Petsy Project Documentation</text>
+    <text x="690" y="1061" class="footer-text2">Notation Standard: Gane-Sarson / Yourdon Level-1 DFD · Direct Faithful Transcription of Teacher's Architectural Model</text>
+</svg>
