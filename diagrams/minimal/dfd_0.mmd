@@ -1,0 +1,14 @@
+flowchart LR
+    Customer["[ Customer ]"]
+    System(("0.0\nPetsy System"))
+    
+    Customer -- "Login Credentials" --> System
+    Customer -- "Pet Details" --> System
+    Customer -- "Reminder Setups" --> System
+    Customer -- "Health Records" --> System
+    
+    System -- "Dashboard UI" --> Customer
+    System -- "Alerts" --> Customer
+    System -- "Pet Summaries" --> Customer
+    
+    classDef default fill:#fff,stroke:#000,stroke-width:2px,color:#000;
