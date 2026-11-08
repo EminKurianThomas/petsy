@@ -5,10 +5,9 @@
 'use strict';
 
 // ─── Utilities ────────────────────────────────────────────────────────────────
-function esc(str) {
+var esc = window.esc = window.esc || function(str) {
   return String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-window.esc = esc;
+};
 
 // ─── State ────────────────────────────────────────────────────────────────────
 const state = {
@@ -2399,11 +2398,6 @@ function showAddRecordModal(petId, defaultType) {
       if (toxic) warnEl.textContent = `⚠️ "${toxic}" is toxic to pets! Do not include in food or medication.`;
     });
   }, 100);
-}
-
-// ─── Utilities ────────────────────────────────────────────────────────────────
-function esc(str) {
-  return String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
 function darkenColor(hex) {
