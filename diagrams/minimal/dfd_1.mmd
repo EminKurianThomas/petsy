@@ -1,0 +1,136 @@
+flowchart TB
+    %% ════════════════════════════════════════════════════════════════════════
+    %% KRISTU JAYANTI COLLEGE (AUTONOMOUS) - DEPARTMENT OF COMPUTER SCIENCE
+    %% ACADEMIC PROJECT DOCUMENTATION: PETSY (PET CARE PLATFORM)
+    %% DATA FLOW DIAGRAM (DFD) — LEVEL 1
+    %% Structure: Module [Left] ─── Process [Center] ─── Data Store [Right]
+    %% ════════════════════════════════════════════════════════════════════════
+
+    %% ────────────────────────────────────────────────────────────────────────
+    %% ROW 1: LOGIN & AUTHENTICATION
+    %% ────────────────────────────────────────────────────────────────────────
+    subgraph ROW1 [" "]
+        direction LR
+        Login["[ Login with user type / Customer & Admin ]"]
+        P1(("1.0<br/><b>Authen</b><br/>(Verify Role)"))
+        D1a[("D1 | Login / Auth Store<br/>public.profiles & auth.users")]
+
+        Login -- "Request (Credentials, Role)" --> P1
+        P1    -- "Request (Verify Record)"      --> D1a
+        D1a   -- "Response (Profile Record & UUID)" --> P1
+        P1    -- "Response (Session Token, Role Grants)" --> Login
+    end
+
+    %% ────────────────────────────────────────────────────────────────────────
+    %% ROW 2: ADMIN MODULE — USER MANAGEMENT
+    %% ────────────────────────────────────────────────────────────────────────
+    subgraph ROW2 [" "]
+        direction LR
+        AdminDash["Admin Dash<br/>[Admin Panel Module]"]
+        P2(("2.0<br/><b>Admin User</b><br/>& System Mgmt"))
+        D1b[("D1 | Users Store<br/>public.users / /users/{uid}")]
+
+        AdminDash -- "Request (View All Users & Manage System)" --> P2
+        P2        -- "Request (Query All Registered User Profiles)" --> D1b
+        D1b       -- "Response (User Profiles, Email & Roles)"     --> P2
+        P2        -- "Response (User Management & Stats Analytics)" --> AdminDash
+    end
+
+    %% ────────────────────────────────────────────────────────────────────────
+    %% ROW 3: CUSTOMER MODULE — HOME DASHBOARD & ACTIVE PET
+    %% ────────────────────────────────────────────────────────────────────────
+    subgraph ROW3 [" "]
+        direction LR
+        HomeDash["Home Dash<br/>[Customer Dashboard]"]
+        P3(("3.0<br/><b>Home Dashboard</b><br/>& Active Pet"))
+        D2a[("D2 | Pets Store<br/>public.pets / /users/{uid}/pets")]
+
+        HomeDash -- "Request (View Active Pet & Reminders)" --> P3
+        P3       -- "Request (Read Active Pet & Upcoming Alerts)" --> D2a
+        D2a      -- "Response (Pet Details, Weight Logs, Care Tips)" --> P3
+        P3       -- "Response (Pet Cards, Weight Preview & Tips)" --> HomeDash
+    end
+
+    %% ────────────────────────────────────────────────────────────────────────
+    %% ROW 4: CUSTOMER MODULE — PET PROFILE MANAGEMENT
+    %% ────────────────────────────────────────────────────────────────────────
+    subgraph ROW4 [" "]
+        direction LR
+        PetProfile["Pet Profile<br/>[Pet Management Module]"]
+        P4(("4.0<br/><b>Pet Profile</b><br/>& Growth Logs"))
+        D2b[("D2 | Pets Store<br/>public.pets / /users/{uid}/pets")]
+
+        PetProfile -- "Request (Add / Edit / Delete Pet, Log Weight)" --> P4
+        P4         -- "Request (Write / Update / Delete Pet Record)" --> D2b
+        D2b        -- "Response (Pet Record Saved / Updated / Deleted)" --> P4
+        P4         -- "Response (Updated Pet List & Growth Chart)" --> PetProfile
+    end
+
+    %% ────────────────────────────────────────────────────────────────────────
+    %% ROW 5: CUSTOMER MODULE — REMINDERS & ALERTS
+    %% ────────────────────────────────────────────────────────────────────────
+    subgraph ROW5 [" "]
+        direction LR
+        Reminders["Reminders<br/>[Reminders & Alerts Module]"]
+        P5(("5.0<br/><b>Reminders</b><br/>& Due Alerts"))
+        D3[("D3 | Reminders Store<br/>public.reminders / /reminders")]
+
+        Reminders -- "Request (Create / Filter / Cycle Reminders)" --> P5
+        P5        -- "Request (Insert / Update / Query Reminders)" --> D3
+        D3        -- "Response (Reminder Records & Due States)" --> P5
+        P5        -- "Response (Alert Notifications & Status Badges)" --> Reminders
+    end
+
+    %% ────────────────────────────────────────────────────────────────────────
+    %% ROW 6: CUSTOMER MODULE — HEALTH & MEDICAL RECORDS
+    %% ────────────────────────────────────────────────────────────────────────
+    subgraph ROW6 [" "]
+        direction LR
+        HealthRec["Health Records<br/>[Medical History Module]"]
+        P6(("6.0<br/><b>Health Records</b><br/>& Medical Logs"))
+        D4[("D4 | Records Store<br/>public.records / /records")]
+
+        HealthRec -- "Request (Add Record, Vaccines/Meds, Export)" --> P6
+        P6        -- "Request (Insert / Delete Record / Query Logs)" --> D4
+        D4        -- "Response (Vaccination & Clinic Entries)" --> P6
+        P6        -- "Response (Medical History View & PDF Export)" --> HealthRec
+    end
+
+    %% ────────────────────────────────────────────────────────────────────────
+    %% ROW 7: CUSTOMER MODULE — SETTINGS & PREFERENCES
+    %% ────────────────────────────────────────────────────────────────────────
+    subgraph ROW7 [" "]
+        direction LR
+        Settings["Settings<br/>[Settings & Preferences]"]
+        P7(("7.0<br/><b>Settings &</b><br/>User Account"))
+        D1c[("D1 | Users Store<br/>public.users / /users/{uid}")]
+
+        Settings -- "Request (Toggle Theme / Change Account / Logout)" --> P7
+        P7       -- "Request (Clear Auth State & Revoke Session)" --> D1c
+        D1c      -- "Response (Session Cleared / Logout Confirmed)" --> P7
+        P7       -- "Response (Theme Applied / Session Revoked)" --> Settings
+    end
+
+    %% ────────────────────────────────────────────────────────────────────────
+    %% ROUTING & ORDERING
+    %% ────────────────────────────────────────────────────────────────────────
+    Login     -. "if admin login success" .-> AdminDash
+    Login     -. "if customer login success" .-> HomeDash
+
+    %% Invisible alignment constraint to enforce vertical stacking
+    ROW1 ~~~ ROW2
+    ROW2 ~~~ ROW3
+    ROW3 ~~~ ROW4
+    ROW4 ~~~ ROW5
+    ROW5 ~~~ ROW6
+    ROW6 ~~~ ROW7
+
+    %% Styling
+    classDef default fill:#ffffff,stroke:#111111,stroke-width:1.5px,color:#111111;
+    style ROW1 fill:none,stroke:none;
+    style ROW2 fill:none,stroke:none;
+    style ROW3 fill:none,stroke:none;
+    style ROW4 fill:none,stroke:none;
+    style ROW5 fill:none,stroke:none;
+    style ROW6 fill:none,stroke:none;
+    style ROW7 fill:none,stroke:none;
