@@ -1,0 +1,25 @@
+flowchart LR
+    Owner["Customer"]
+    
+    subgraph System["Petsy System"]
+        direction TB
+        UC1(["Register / Login"])
+        UC2(["Manage Profile"])
+        UC3(["Add / Edit / Delete Pet"])
+        UC4(["Switch Active Pet"])
+        UC5(["Set / Manage Reminders"])
+        UC6(["Cycle Reminder Status"])
+        UC7(["Add / Delete Records"])
+    end
+    
+    Owner --- UC1
+    Owner --- UC2
+    Owner --- UC3
+    Owner --- UC4
+    Owner --- UC5
+    Owner --- UC6
+    Owner --- UC7
+    
+    classDef default fill:#fff,stroke:#000,stroke-width:2px,color:#000;
+    class Owner default,stroke-width:0px;
+    style System fill:#fff,stroke:#000,stroke-width:2px,color:#000
