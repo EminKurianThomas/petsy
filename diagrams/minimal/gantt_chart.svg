@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1033" width="1440" height="1033">
+    <defs>
+        <style>
+            .header-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 15px; font-weight: bold; fill: #111111; text-anchor: middle; }
+            .header-sub { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10.5px; font-weight: 600; fill: #555555; text-anchor: middle; letter-spacing: 0.5px; }
+            .header-main { font-family: 'Segoe UI', Arial, sans-serif; font-size: 20px; font-weight: 800; fill: #000000; text-anchor: middle; letter-spacing: 0.5px; }
+            .header-proj { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11.5px; font-style: italic; fill: #444444; text-anchor: middle; }
+            
+            .th-left-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 12px; font-weight: bold; fill: #ffffff; text-anchor: middle; letter-spacing: 0.5px; }
+            .th-left-sub { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9px; font-weight: 500; fill: #cbd5e1; text-anchor: middle; letter-spacing: 0.3px; }
+            
+            .th-month { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; font-weight: bold; fill: #ffffff; text-anchor: middle; letter-spacing: 0.4px; }
+            .th-week { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: bold; fill: #ffffff; text-anchor: middle; }
+            .th-date { font-family: 'Segoe UI', Arial, sans-serif; font-size: 7.5px; fill: #cbd5e1; text-anchor: middle; }
+
+            .phase-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: 800; fill: #0f172a; letter-spacing: 0.3px; }
+            
+            .wbs-badge { fill: #0f172a; rx: 2; }
+            .wbs-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9px; font-weight: bold; fill: #ffffff; text-anchor: middle; }
+            .task-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10.5px; font-weight: bold; fill: #0f172a; }
+            .task-desc { font-family: 'Segoe UI', Arial, sans-serif; font-size: 8.5px; fill: #64748b; }
+
+            .role-badge { fill: #ffffff; stroke-width: 1; rx: 3; }
+            .role-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 7.5px; font-weight: bold; text-anchor: middle; }
+
+            .bar-rect { rx: 3; stroke-width: 0.5; stroke: rgba(0,0,0,0.25); }
+            .bar-text { font-family: 'Arial Narrow', 'Segoe UI', Arial, sans-serif; font-size: 7.2px; font-weight: bold; fill: #ffffff; text-anchor: middle; letter-spacing: -0.15px; }
+
+            .grid-line { stroke: #e2e8f0; stroke-width: 0.8; }
+            .month-sep-line { stroke: #94a3b8; stroke-width: 1.2; }
+            .row-line { stroke: #f1f5f9; stroke-width: 0.8; }
+
+            .ms-header { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10.5px; font-weight: 800; fill: #0f172a; letter-spacing: 0.5px; }
+            .ms-card-bg { fill: #ffffff; stroke: #e2e8f0; stroke-width: 1; rx: 4; }
+            .ms-tag { rx: 2; }
+            .ms-tag-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 8px; font-weight: bold; fill: #ffffff; text-anchor: middle; }
+            .ms-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9.5px; font-weight: bold; fill: #0f172a; }
+            .ms-desc { font-family: 'Segoe UI', Arial, sans-serif; font-size: 8px; fill: #64748b; }
+
+            .footer-line { stroke: #111111; stroke-width: 1.5; }
+            .footer-text1 { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; font-weight: 600; fill: #333333; text-anchor: middle; }
+            .footer-text2 { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9px; fill: #666666; text-anchor: middle; }
+        </style>
+    </defs>
+
+    <!-- Canvas Background -->
+    <rect width="1440" height="1033" fill="#ffffff" />
+
+    <!-- ══════════════════════════════════════════════════════════════════════ -->
+    <!-- HEADER -->
+    <!-- ══════════════════════════════════════════════════════════════════════ -->
+    <text x="720" y="30" class="header-title">Kristu Jayanti College (Autonomous) · Bengaluru</text>
+    <text x="720" y="46" class="header-sub">DEPARTMENT OF COMPUTER SCIENCE — ACADEMIC PROJECT DOCUMENTATION</text>
+    <text x="720" y="72" class="header-main">PROJECT GANTT CHART &amp; COMPLETE SDLC IMPLEMENTATION SCHEDULE</text>
+    <text x="720" y="90" class="header-proj">Project: Petsy (Pet Care &amp; Health Management Platform) · Planning, Requirement Analysis, Design, Coding (All Modules), Testing &amp; Deployment</text>
+    <line x1="30" y1="102" x2="1410" y2="102" stroke="#111111" stroke-width="1.8" />
+
+    <!-- ══════════════════════════════════════════════════════════════════════ -->
+    <!-- TABLE HEADER BAR -->
+    <!-- ══════════════════════════════════════════════════════════════════════ -->
+    <!-- Left Column Header -->
+    <rect x="30" y="115" width="505" height="44" fill="#0f172a" />
+    <text x="282.5" y="133" class="th-left-title">SDLC PHASES &amp; FUNCTIONAL MODULE WORK PACKAGES</text>
+    <text x="282.5" y="149" class="th-left-sub">WBS Code  ·  SDLC Phase / Module Name  ·  Component Reference  ·  Role</text>
+
+    <!-- Month Headers -->
+
+    <rect x="535" y="115" width="291.6666666666667" height="22" fill="#0b2341" stroke="#ffffff" stroke-width="0.5" />
+    <text x="680.8333333333334" y="130" class="th-month">AUGUST 2026 (Weeks 1 - 4)</text>
+
+    <rect x="826.6666666666667" y="115" width="291.6666666666667" height="22" fill="#06373a" stroke="#ffffff" stroke-width="0.5" />
+    <text x="972.5000000000001" y="130" class="th-month">SEPTEMBER 2026 (Weeks 5 - 8)</text>
+
+    <rect x="1118.3333333333335" y="115" width="291.6666666666667" height="22" fill="#1c1f38" stroke="#ffffff" stroke-width="0.5" />
+    <text x="1264.1666666666667" y="130" class="th-month">OCTOBER 2026 (Weeks 9 - 12)</text>
+
+    <rect x="535" y="137" width="72.91666666666667" height="22" fill="#0b2341" opacity="0.88" stroke="#ffffff" stroke-width="0.4" />
+    <text x="571.4583333333334" y="148" class="th-week">W1</text>
+    <text x="571.4583333333334" y="156" class="th-date">Aug 01-07</text>
+
+    <rect x="607.9166666666666" y="137" width="72.91666666666667" height="22" fill="#0b2341" opacity="0.88" stroke="#ffffff" stroke-width="0.4" />
+    <text x="644.375" y="148" class="th-week">W2</text>
+    <text x="644.375" y="156" class="th-date">Aug 08-14</text>
+
+    <rect x="680.8333333333334" y="137" width="72.91666666666667" height="22" fill="#0b2341" opacity="0.88" stroke="#ffffff" stroke-width="0.4" />
+    <text x="717.2916666666667" y="148" class="th-week">W3</text>
+    <text x="717.2916666666667" y="156" class="th-date">Aug 15-21</text>
+
+    <rect x="753.75" y="137" width="72.91666666666667" height="22" fill="#0b2341" opacity="0.88" stroke="#ffffff" stroke-width="0.4" />
+    <text x="790.2083333333334" y="148" class="th-week">W4</text>
+    <text x="790.2083333333334" y="156" class="th-date">Aug 22-28</text>
+
+    <rect x="826.6666666666667" y="137" width="72.91666666666667" height="22" fill="#06373a" opacity="0.88" stroke="#ffffff" stroke-width="0.4" />
+    <text x="863.1250000000001" y="148" class="th-week">W5</text>
+    <text x="863.1250000000001" y="156" class="th-date">Sep 01-07</text>
+
+    <rect x="899.5833333333334" y="137" width="72.91666666666667" height="22" fill="#06373a" opacity="0.88" stroke="#ffffff" stroke-width="0.4" />
+    <text x="936.0416666666667" y="148" class="th-week">W6</text>
+    <text x="936.0416666666667" y="156" class="th-date">Sep 08-14</text>
+
+    <rect x="972.5" y="137" width="72.91666666666667" height="22" fill="#06373a" opacity="0.88" stroke="#ffffff" stroke-width="0.4" />
+    <text x="1008.9583333333334" y="148" class="th-week">W7</text>
+    <text x="1008.9583333333334" y="156" class="th-date">Sep 15-21</text>
+
+    <rect x="1045.4166666666667" y="137" width="72.91666666666667" height="22" fill="#06373a" opacity="0.88" stroke="#ffffff" stroke-width="0.4" />
+    <text x="1081.875" y="148" class="th-week">W8</text>
+    <text x="1081.875" y="156" class="th-date">Sep 22-28</text>
+
+    <rect x="1118.3333333333335" y="137" width="72.91666666666667" height="22" fill="#1c1f38" opacity="0.88" stroke="#ffffff" stroke-width="0.4" />
+    <text x="1154.7916666666667" y="148" class="th-week">W9</text>
+    <text x="1154.7916666666667" y="156" class="th-date">Oct 01-07</text>
+
+    <rect x="1191.25" y="137" width="72.91666666666667" height="22" fill="#1c1f38" opacity="0.88" stroke="#ffffff" stroke-width="0.4" />
+    <text x="1227.7083333333333" y="148" class="th-week">W10</text>
+    <text x="1227.7083333333333" y="156" class="th-date">Oct 08-14</text>
+
+    <rect x="1264.1666666666667" y="137" width="72.91666666666667" height="22" fill="#1c1f38" opacity="0.88" stroke="#ffffff" stroke-width="0.4" />
+    <text x="1300.625" y="148" class="th-week">W11</text>
+    <text x="1300.625" y="156" class="th-date">Oct 15-21</text>
+
+    <rect x="1337.0833333333335" y="137" width="72.91666666666667" height="22" fill="#1c1f38" opacity="0.88" stroke="#ffffff" stroke-width="0.4" />
+    <text x="1373.5416666666667" y="148" class="th-week">W12</text>
+    <text x="1373.5416666666667" y="156" class="th-date">Oct 22-28</text>
+
+    <!-- Outer Table Frame -->
+    <rect x="30" y="115" width="1380" height="751" fill="none" stroke="#0f172a" stroke-width="1.2" />
+    <line x1="535" y1="115" x2="535" y2="866" stroke="#0f172a" stroke-width="1.2" />
+
+    <line x1="607.9166666666666" y1="159" x2="607.9166666666666" y2="866" class="grid-line" />
+
+    <line x1="680.8333333333334" y1="159" x2="680.8333333333334" y2="866" class="grid-line" />
+
+    <line x1="753.75" y1="159" x2="753.75" y2="866" class="grid-line" />
+
+    <line x1="826.6666666666667" y1="159" x2="826.6666666666667" y2="866" class="month-sep-line" />
+
+    <line x1="899.5833333333334" y1="159" x2="899.5833333333334" y2="866" class="grid-line" />
+
+    <line x1="972.5" y1="159" x2="972.5" y2="866" class="grid-line" />
+
+    <line x1="1045.4166666666667" y1="159" x2="1045.4166666666667" y2="866" class="grid-line" />
+
+    <line x1="1118.3333333333335" y1="159" x2="1118.3333333333335" y2="866" class="month-sep-line" />
+
+    <line x1="1191.25" y1="159" x2="1191.25" y2="866" class="grid-line" />
+
+    <line x1="1264.1666666666667" y1="159" x2="1264.1666666666667" y2="866" class="grid-line" />
+
+    <line x1="1337.0833333333335" y1="159" x2="1337.0833333333335" y2="866" class="grid-line" />
+
+    <!-- Phase Banner: PHASE 1: PROJECT PLANNING & FEASIBILITY ANALYSIS -->
+    <rect x="30" y="159" width="505" height="26" fill="#f0f9ff" stroke="#e0f2fe" stroke-width="0.8" />
+    <rect x="535" y="159" width="875" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8" />
+    <line x1="30" y1="159" x2="30" y2="185" stroke="#0284c7" stroke-width="4.5" />
+    <text x="42" y="176" class="phase-title" fill="#0284c7">PHASE 1: PROJECT PLANNING & FEASIBILITY ANALYSIS</text>
+    <line x1="30" y1="185" x2="1410" y2="185" stroke="#cbd5e1" stroke-width="0.8" />
+
+    <!-- Task: 1.1 Project Planning & Feasibility Study -->
+    <rect x="30" y="185" width="505" height="35" fill="#ffffff" />
+    <line x1="30" y1="220" x2="1410" y2="220" class="row-line" />
+
+    <!-- WBS Badge -->
+    <rect x="40" y="193.5" width="22" height="18" class="wbs-badge" />
+    <text x="51" y="206" class="wbs-text">1.1</text>
+
+    <!-- Task Title & Desc -->
+    <text x="68" y="200.5" class="task-title">Project Planning & Feasibility Study</text>
+    <text x="68" y="212.5" class="task-desc">Project Charter, Scope, Technical & Operational Feasibility Analysis</text>
+
+    <!-- Role Badge -->
+    <rect x="457" y="194.5" width="68" height="16" class="role-badge" stroke="#0284c7" />
+    <text x="491" y="206" class="role-text" fill="#0284c7">PLANNING</text>
+
+    <!-- Gantt Bar -->
+    <rect x="535" y="193.5" width="72.91666666666667" height="18" fill="#0284c7" class="bar-rect" />
+    <text x="571.4583333333334" y="205" class="bar-text">1.0 Wk [100% Done]</text>
+
+    <!-- Phase Banner: PHASE 2: REQUIREMENT ANALYSIS & SPECIFICATION -->
+    <rect x="30" y="220" width="505" height="26" fill="#f0f9ff" stroke="#e0f2fe" stroke-width="0.8" />
+    <rect x="535" y="220" width="875" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8" />
+    <line x1="30" y1="220" x2="30" y2="246" stroke="#0284c7" stroke-width="4.5" />
+    <text x="42" y="237" class="phase-title" fill="#0284c7">PHASE 2: REQUIREMENT ANALYSIS & SPECIFICATION</text>
+    <line x1="30" y1="246" x2="1410" y2="246" stroke="#cbd5e1" stroke-width="0.8" />
+
+    <!-- Task: 2.1 Requirements Gathering & IEEE SRS Specification -->
+    <rect x="30" y="246" width="505" height="35" fill="#ffffff" />
+    <line x1="30" y1="281" x2="1410" y2="281" class="row-line" />
+
+    <!-- WBS Badge -->
+    <rect x="40" y="254.5" width="22" height="18" class="wbs-badge" />
+    <text x="51" y="267" class="wbs-text">2.1</text>
+
+    <!-- Task Title & Desc -->
+    <text x="68" y="261.5" class="task-title">Requirements Gathering & IEEE SRS Specification</text>
+    <text x="68" y="273.5" class="task-desc">Functional & Non-Functional Specs, Pet Parent Personas & System Constraints</text>
+
+    <!-- Role Badge -->
+    <rect x="457" y="255.5" width="68" height="16" class="role-badge" stroke="#0284c7" />
+    <text x="491" y="267" class="role-text" fill="#0284c7">ANALYSIS</text>
+
+    <!-- Gantt Bar -->
+    <rect x="607.9166666666666" y="254.5" width="72.91666666666667" height="18" fill="#0369a1" class="bar-rect" />
+    <text x="644.375" y="266" class="bar-text">1.0 Wk [100% Done]</text>
+
+    <!-- Phase Banner: PHASE 3: SYSTEM DESIGN & DATABASE ARCHITECTURE -->
+    <rect x="30" y="281" width="505" height="26" fill="#f0f9ff" stroke="#e0f2fe" stroke-width="0.8" />
+    <rect x="535" y="281" width="875" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8" />
+    <line x1="30" y1="281" x2="30" y2="307" stroke="#0d9488" stroke-width="4.5" />
+    <text x="42" y="298" class="phase-title" fill="#0d9488">PHASE 3: SYSTEM DESIGN & DATABASE ARCHITECTURE</text>
+    <line x1="30" y1="307" x2="1410" y2="307" stroke="#cbd5e1" stroke-width="0.8" />
+
+    <!-- Task: 3.1 System Architecture, ERD & Level-0/1 DFD Design -->
+    <rect x="30" y="307" width="505" height="35" fill="#ffffff" />
+    <line x1="30" y1="342" x2="1410" y2="342" class="row-line" />
+
+    <!-- WBS Badge -->
+    <rect x="40" y="315.5" width="22" height="18" class="wbs-badge" />
+    <text x="51" y="328" class="wbs-text">3.1</text>
+
+    <!-- Task Title & Desc -->
+    <text x="68" y="322.5" class="task-title">System Architecture, ERD & Level-0/1 DFD Design</text>
+    <text x="68" y="334.5" class="task-desc">High-Level Mobile Architecture, Firestore NoSQL Collections & DFD Models</text>
+
+    <!-- Role Badge -->
+    <rect x="457" y="316.5" width="68" height="16" class="role-badge" stroke="#0d9488" />
+    <text x="491" y="328" class="role-text" fill="#0d9488">DESIGN</text>
+
+    <!-- Gantt Bar -->
+    <rect x="680.8333333333334" y="315.5" width="72.91666666666667" height="18" fill="#0f766e" class="bar-rect" />
+    <text x="717.2916666666667" y="327" class="bar-text">1.0 Wk [100% Done]</text>
+
+    <!-- Phase Banner: PHASE 4: CODING & MODULE IMPLEMENTATION (CORE APPLICATION LOGIC) -->
+    <rect x="30" y="342" width="505" height="26" fill="#f0f9ff" stroke="#e0f2fe" stroke-width="0.8" />
+    <rect x="535" y="342" width="875" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8" />
+    <line x1="30" y1="342" x2="30" y2="368" stroke="#2563eb" stroke-width="4.5" />
+    <text x="42" y="359" class="phase-title" fill="#2563eb">PHASE 4: CODING & MODULE IMPLEMENTATION (CORE APPLICATION LOGIC)</text>
+    <line x1="30" y1="368" x2="1410" y2="368" stroke="#cbd5e1" stroke-width="0.8" />
+
+    <!-- Task: 4.1 Module 1: User Auth & Multi-Role Access (Customer & Admin) -->
+    <rect x="30" y="368" width="505" height="35" fill="#ffffff" />
+    <line x1="30" y1="403" x2="1410" y2="403" class="row-line" />
+
+    <!-- WBS Badge -->
+    <rect x="40" y="376.5" width="22" height="18" class="wbs-badge" />
+    <text x="51" y="389" class="wbs-text">4.1</text>
+
+    <!-- Task Title & Desc -->
+    <text x="68" y="383.5" class="task-title">Module 1: User Auth & Multi-Role Access (Customer & Admin)</text>
+    <text x="68" y="395.5" class="task-desc">AuthScreen.js, Firebase Auth, Session Persistence, Role Verification Logic</text>
+
+    <!-- Role Badge -->
+    <rect x="457" y="377.5" width="68" height="16" class="role-badge" stroke="#2563eb" />
+    <text x="491" y="389" class="role-text" fill="#2563eb">CODING</text>
+
+    <!-- Gantt Bar -->
+    <rect x="739.1666666666666" y="376.5" width="145.83333333333334" height="18" fill="#2563eb" class="bar-rect" />
+    <text x="812.0833333333333" y="388" class="bar-text">2.0 Wks [100% Done]</text>
+
+    <!-- Task: 4.2 Module 2: Admin Dashboard & System Management -->
+    <rect x="30" y="403" width="505" height="35" fill="#ffffff" />
+    <line x1="30" y1="438" x2="1410" y2="438" class="row-line" />
+
+    <!-- WBS Badge -->
+    <rect x="40" y="411.5" width="22" height="18" class="wbs-badge" />
+    <text x="51" y="424" class="wbs-text">4.2</text>
+
+    <!-- Task Title & Desc -->
+    <text x="68" y="418.5" class="task-title">Module 2: Admin Dashboard & System Management</text>
+    <text x="68" y="430.5" class="task-desc">Admin Panel, User Accounts Management, System Analytics & Auditing</text>
+
+    <!-- Role Badge -->
+    <rect x="457" y="412.5" width="68" height="16" class="role-badge" stroke="#4f46e5" />
+    <text x="491" y="424" class="role-text" fill="#4f46e5">CODING</text>
+
+    <!-- Gantt Bar -->
+    <rect x="812.0833333333333" y="411.5" width="145.83333333333334" height="18" fill="#4f46e5" class="bar-rect" />
+    <text x="884.9999999999999" y="423" class="bar-text">2.0 Wks [100% Done]</text>
+
+    <!-- Task: 4.3 Module 3: Customer Home Dashboard & Active Pet Switching -->
+    <rect x="30" y="438" width="505" height="35" fill="#ffffff" />
+    <line x1="30" y1="473" x2="1410" y2="473" class="row-line" />
+
+    <!-- WBS Badge -->
+    <rect x="40" y="446.5" width="22" height="18" class="wbs-badge" />
+    <text x="51" y="459" class="wbs-text">4.3</text>
+
+    <!-- Task Title & Desc -->
+    <text x="68" y="453.5" class="task-title">Module 3: Customer Home Dashboard & Active Pet Switching</text>
+    <text x="68" y="465.5" class="task-desc">HomeScreen.js, Active Pet Selector, Weight Preview, Care Tips & Dynamic Banner</text>
+
+    <!-- Role Badge -->
+    <rect x="457" y="447.5" width="68" height="16" class="role-badge" stroke="#7c3aed" />
+    <text x="491" y="459" class="role-text" fill="#7c3aed">CODING</text>
+
+    <!-- Gantt Bar -->
+    <rect x="855.8333333333334" y="446.5" width="175" height="18" fill="#7c3aed" class="bar-rect" />
+    <text x="943.3333333333334" y="458" class="bar-text">2.4 Wks [100% Done]</text>
+
+    <!-- Task: 4.4 Module 4: Pet Profile Management & Multi-Pet CRUD -->
+    <rect x="30" y="473" width="505" height="35" fill="#ffffff" />
+    <line x1="30" y1="508" x2="1410" y2="508" class="row-line" />
+
+    <!-- WBS Badge -->
+    <rect x="40" y="481.5" width="22" height="18" class="wbs-badge" />
+    <text x="51" y="494" class="wbs-text">4.4</text>
+
+    <!-- Task Title & Desc -->
+    <text x="68" y="488.5" class="task-title">Module 4: Pet Profile Management & Multi-Pet CRUD</text>
+    <text x="68" y="500.5" class="task-desc">ProfileScreen.js, AddPetForm.js, Breed/Species/DOB Details, Profile Cards</text>
+
+    <!-- Role Badge -->
+    <rect x="457" y="482.5" width="68" height="16" class="role-badge" stroke="#059669" />
+    <text x="491" y="494" class="role-text" fill="#059669">CODING</text>
+
+    <!-- Gantt Bar -->
+    <rect x="899.5833333333334" y="481.5" width="175" height="18" fill="#059669" class="bar-rect" />
+    <text x="987.0833333333334" y="493" class="bar-text">2.4 Wks [100% Done]</text>
+
+    <!-- Task: 4.5 Module 5: Weight Tracker & Interactive Growth Charts -->
+    <rect x="30" y="508" width="505" height="35" fill="#ffffff" />
+    <line x1="30" y1="543" x2="1410" y2="543" class="row-line" />
+
+    <!-- WBS Badge -->
+    <rect x="40" y="516.5" width="22" height="18" class="wbs-badge" />
+    <text x="51" y="529" class="wbs-text">4.5</text>
+
+    <!-- Task Title & Desc -->
+    <text x="68" y="523.5" class="task-title">Module 5: Weight Tracker & Interactive Growth Charts</text>
+    <text x="68" y="535.5" class="task-desc">LogWeightForm.js, Historical Weight Tracking, Chart Visualization, Ideal Range</text>
+
+    <!-- Role Badge -->
+    <rect x="457" y="517.5" width="68" height="16" class="role-badge" stroke="#dc2626" />
+    <text x="491" y="529" class="role-text" fill="#dc2626">CODING</text>
+
+    <!-- Gantt Bar -->
+    <rect x="957.9166666666667" y="516.5" width="160.41666666666669" height="18" fill="#dc2626" class="bar-rect" />
+    <text x="1038.125" y="528" class="bar-text">2.2 Wks [100% Done]</text>
+
+    <!-- Task: 4.6 Module 6: Reminders & Alerts Management System -->
+    <rect x="30" y="543" width="505" height="35" fill="#ffffff" />
+    <line x1="30" y1="578" x2="1410" y2="578" class="row-line" />
+
+    <!-- WBS Badge -->
+    <rect x="40" y="551.5" width="22" height="18" class="wbs-badge" />
+    <text x="51" y="564" class="wbs-text">4.6</text>
+
+    <!-- Task Title & Desc -->
+    <text x="68" y="558.5" class="task-title">Module 6: Reminders & Alerts Management System</text>
+    <text x="68" y="570.5" class="task-desc">RemindersScreen.js, AddReminderForm.js, Date/Time Picker, Category Filter, Due States</text>
+
+    <!-- Role Badge -->
+    <rect x="457" y="552.5" width="68" height="16" class="role-badge" stroke="#0284c7" />
+    <text x="491" y="564" class="role-text" fill="#0284c7">CODING</text>
+
+    <!-- Gantt Bar -->
+    <rect x="1001.6666666666667" y="551.5" width="175" height="18" fill="#0284c7" class="bar-rect" />
+    <text x="1089.1666666666667" y="563" class="bar-text">2.4 Wks [100% Done]</text>
+
+    <!-- Task: 4.7 Module 7: Health & Medical Records Management -->
+    <rect x="30" y="578" width="505" height="35" fill="#ffffff" />
+    <line x1="30" y1="613" x2="1410" y2="613" class="row-line" />
+
+    <!-- WBS Badge -->
+    <rect x="40" y="586.5" width="22" height="18" class="wbs-badge" />
+    <text x="51" y="599" class="wbs-text">4.7</text>
+
+    <!-- Task Title & Desc -->
+    <text x="68" y="593.5" class="task-title">Module 7: Health & Medical Records Management</text>
+    <text x="68" y="605.5" class="task-desc">RecordsScreen.js, AddRecordForm.js, Vaccinations, Medications, Vet Visits, Data Export</text>
+
+    <!-- Role Badge -->
+    <rect x="457" y="587.5" width="68" height="16" class="role-badge" stroke="#d97706" />
+    <text x="491" y="599" class="role-text" fill="#d97706">CODING</text>
+
+    <!-- Gantt Bar -->
+    <rect x="1060" y="586.5" width="160.41666666666669" height="18" fill="#d97706" class="bar-rect" />
+    <text x="1140.2083333333333" y="598" class="bar-text">2.2 Wks [100% Done]</text>
+
+    <!-- Task: 4.8 Module 8: Settings, Theme Engine & User Account -->
+    <rect x="30" y="613" width="505" height="35" fill="#ffffff" />
+    <line x1="30" y1="648" x2="1410" y2="648" class="row-line" />
+
+    <!-- WBS Badge -->
+    <rect x="40" y="621.5" width="22" height="18" class="wbs-badge" />
+    <text x="51" y="634" class="wbs-text">4.8</text>
+
+    <!-- Task Title & Desc -->
+    <text x="68" y="628.5" class="task-title">Module 8: Settings, Theme Engine & User Account</text>
+    <text x="68" y="640.5" class="task-desc">SettingsScreen.js, Dark/Light/System Mode, Profile Updates, Secure Sign-Out</text>
+
+    <!-- Role Badge -->
+    <rect x="457" y="622.5" width="68" height="16" class="role-badge" stroke="#9333ea" />
+    <text x="491" y="634" class="role-text" fill="#9333ea">CODING</text>
+
+    <!-- Gantt Bar -->
+    <rect x="1118.3333333333335" y="621.5" width="145.83333333333334" height="18" fill="#9333ea" class="bar-rect" />
+    <text x="1191.2500000000002" y="633" class="bar-text">2.0 Wks [100% Done]</text>
+
+    <!-- Phase Banner: PHASE 5: TESTING & QUALITY ASSURANCE -->
+    <rect x="30" y="648" width="505" height="26" fill="#f0f9ff" stroke="#e0f2fe" stroke-width="0.8" />
+    <rect x="535" y="648" width="875" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8" />
+    <line x1="30" y1="648" x2="30" y2="674" stroke="#ea580c" stroke-width="4.5" />
+    <text x="42" y="665" class="phase-title" fill="#ea580c">PHASE 5: TESTING & QUALITY ASSURANCE</text>
+    <line x1="30" y1="674" x2="1410" y2="674" stroke="#cbd5e1" stroke-width="0.8" />
+
+    <!-- Task: 5.1 Unit & Component Testing (React Native & Forms) -->
+    <rect x="30" y="674" width="505" height="35" fill="#ffffff" />
+    <line x1="30" y1="709" x2="1410" y2="709" class="row-line" />
+
+    <!-- WBS Badge -->
+    <rect x="40" y="682.5" width="22" height="18" class="wbs-badge" />
+    <text x="51" y="695" class="wbs-text">5.1</text>
+
+    <!-- Task Title & Desc -->
+    <text x="68" y="689.5" class="task-title">Unit & Component Testing (React Native & Forms)</text>
+    <text x="68" y="701.5" class="task-desc">Jest Test Suites, Input Validations, Firestore Mock Testing, State Flows</text>
+
+    <!-- Role Badge -->
+    <rect x="457" y="683.5" width="68" height="16" class="role-badge" stroke="#ea580c" />
+    <text x="491" y="695" class="role-text" fill="#ea580c">TESTING</text>
+
+    <!-- Gantt Bar -->
+    <rect x="1162.0833333333335" y="682.5" width="145.83333333333334" height="18" fill="#ea580c" class="bar-rect" />
+    <text x="1235.0000000000002" y="694" class="bar-text">2.0 Wks [100% Done]</text>
+
+    <!-- Task: 5.2 User Acceptance Testing (UAT) & Performance Audit -->
+    <rect x="30" y="709" width="505" height="35" fill="#ffffff" />
+    <line x1="30" y1="744" x2="1410" y2="744" class="row-line" />
+
+    <!-- WBS Badge -->
+    <rect x="40" y="717.5" width="22" height="18" class="wbs-badge" />
+    <text x="51" y="730" class="wbs-text">5.2</text>
+
+    <!-- Task Title & Desc -->
+    <text x="68" y="724.5" class="task-title">User Acceptance Testing (UAT) & Performance Audit</text>
+    <text x="68" y="736.5" class="task-desc">End-to-End User Journeys, Expo Mobile Device Testing, Accessibility & UI QA</text>
+
+    <!-- Role Badge -->
+    <rect x="457" y="718.5" width="68" height="16" class="role-badge" stroke="#ea580c" />
+    <text x="491" y="730" class="role-text" fill="#ea580c">TESTING</text>
+
+    <!-- Gantt Bar -->
+    <rect x="1220.4166666666667" y="717.5" width="116.66666666666669" height="18" fill="#c2410c" class="bar-rect" />
+    <text x="1278.75" y="729" class="bar-text">1.6 Wks [100% Done]</text>
+
+    <!-- Phase Banner: PHASE 6: DEPLOYMENT & EXPO BUILD INFRASTRUCTURE -->
+    <rect x="30" y="744" width="505" height="26" fill="#f0f9ff" stroke="#e0f2fe" stroke-width="0.8" />
+    <rect x="535" y="744" width="875" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8" />
+    <line x1="30" y1="744" x2="30" y2="770" stroke="#1e293b" stroke-width="4.5" />
+    <text x="42" y="761" class="phase-title" fill="#1e293b">PHASE 6: DEPLOYMENT & EXPO BUILD INFRASTRUCTURE</text>
+    <line x1="30" y1="770" x2="1410" y2="770" stroke="#cbd5e1" stroke-width="0.8" />
+
+    <!-- Task: 6.1 Mobile Build & Production Setup (EAS / Web Build) -->
+    <rect x="30" y="770" width="505" height="35" fill="#ffffff" />
+    <line x1="30" y1="805" x2="1410" y2="805" class="row-line" />
+
+    <!-- WBS Badge -->
+    <rect x="40" y="778.5" width="22" height="18" class="wbs-badge" />
+    <text x="51" y="791" class="wbs-text">6.1</text>
+
+    <!-- Task Title & Desc -->
+    <text x="68" y="785.5" class="task-title">Mobile Build & Production Setup (EAS / Web Build)</text>
+    <text x="68" y="797.5" class="task-desc">Expo EAS Build, Android APK Generation, Firebase Cloud Rules & Web Hosting</text>
+
+    <!-- Role Badge -->
+    <rect x="457" y="779.5" width="68" height="16" class="role-badge" stroke="#334155" />
+    <text x="491" y="791" class="role-text" fill="#334155">DEPLOYMENT</text>
+
+    <!-- Gantt Bar -->
+    <rect x="1264.1666666666667" y="778.5" width="72.91666666666667" height="18" fill="#334155" class="bar-rect" />
+    <text x="1300.625" y="790" class="bar-text">1.0 Wk [100% Done]</text>
+
+    <!-- Phase Banner: PHASE 7: MAINTENANCE, FINAL DOCUMENTATION & VIVA-VOCE DEFENSE -->
+    <rect x="30" y="805" width="505" height="26" fill="#f0f9ff" stroke="#e0f2fe" stroke-width="0.8" />
+    <rect x="535" y="805" width="875" height="26" fill="#f8fafc" stroke="#e2e8f0" stroke-width="0.8" />
+    <line x1="30" y1="805" x2="30" y2="831" stroke="#15803d" stroke-width="4.5" />
+    <text x="42" y="822" class="phase-title" fill="#15803d">PHASE 7: MAINTENANCE, FINAL DOCUMENTATION & VIVA-VOCE DEFENSE</text>
+    <line x1="30" y1="831" x2="1410" y2="831" stroke="#cbd5e1" stroke-width="0.8" />
+
+    <!-- Task: 7.1 Final Project Documentation & Viva-Voce Defense -->
+    <rect x="30" y="831" width="505" height="35" fill="#ffffff" />
+    <line x1="30" y1="866" x2="1410" y2="866" class="row-line" />
+
+    <!-- WBS Badge -->
+    <rect x="40" y="839.5" width="22" height="18" class="wbs-badge" />
+    <text x="51" y="852" class="wbs-text">7.1</text>
+
+    <!-- Task Title & Desc -->
+    <text x="68" y="846.5" class="task-title">Final Project Documentation & Viva-Voce Defense</text>
+    <text x="68" y="858.5" class="task-desc">Kristu Jayanti Academic Report Binding, Level-1 DFD, ERD, Presentation Deck & Defense</text>
+
+    <!-- Role Badge -->
+    <rect x="457" y="840.5" width="68" height="16" class="role-badge" stroke="#15803d" />
+    <text x="491" y="852" class="role-text" fill="#15803d">DOCUMENTATION</text>
+
+    <!-- Gantt Bar -->
+    <rect x="1300.625" y="839.5" width="72.91666666666667" height="18" fill="#15803d" class="bar-rect" />
+    <text x="1337.0833333333333" y="851" class="bar-text">1.0 Wk [100% Done]</text>
+
+    <!-- Milestones Outer Box -->
+    <rect x="30" y="882" width="1380" height="82" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2" rx="5" />
+    <text x="46" y="899" class="ms-header">KEY ACADEMIC MILESTONES &amp; SPRINT DELIVERABLES (SDLC GATES)</text>
+
+    <g>
+        <rect x="46" y="908" width="260" height="46" class="ms-card-bg" />
+        <rect x="53" y="914" width="68" height="13" fill="#0284c7" class="ms-tag" />
+        <text x="87" y="923.5" class="ms-tag-text">M1 (Aug W2)</text>
+        <text x="53" y="937" class="ms-title">Planning & SRS Sign-Off</text>
+        <text x="53" y="948" class="ms-desc">Feasibility & IEEE Specification Approved</text>
+    </g>
+
+    <g>
+        <rect x="318" y="908" width="260" height="46" class="ms-card-bg" />
+        <rect x="325" y="914" width="68" height="13" fill="#0f766e" class="ms-tag" />
+        <text x="359" y="923.5" class="ms-tag-text">M2 (Aug W4)</text>
+        <text x="325" y="937" class="ms-title">Architecture & Schema Frozen</text>
+        <text x="325" y="948" class="ms-desc">Firestore Collections, ERD & Level-0/1 DFD Deployed</text>
+    </g>
+
+    <g>
+        <rect x="590" y="908" width="260" height="46" class="ms-card-bg" />
+        <rect x="597" y="914" width="68" height="13" fill="#dc2626" class="ms-tag" />
+        <text x="631" y="923.5" class="ms-tag-text">M3 (Sep W4)</text>
+        <text x="597" y="937" class="ms-title">Core Pet Profile & Weight Engine</text>
+        <text x="597" y="948" class="ms-desc">Multi-Pet CRUD, Profile Cards & Growth Chart Done</text>
+    </g>
+
+    <g>
+        <rect x="862" y="908" width="260" height="46" class="ms-card-bg" />
+        <rect x="869" y="914" width="68" height="13" fill="#059669" class="ms-tag" />
+        <text x="903" y="923.5" class="ms-tag-text">M4 (Oct W2)</text>
+        <text x="869" y="937" class="ms-title">Feature Complete / Code Freeze</text>
+        <text x="869" y="948" class="ms-desc">Reminders, Health Records, Settings & UAT Passed</text>
+    </g>
+
+    <g>
+        <rect x="1134" y="908" width="260" height="46" class="ms-card-bg" />
+        <rect x="1141" y="914" width="68" height="13" fill="#d97706" class="ms-tag" />
+        <text x="1175" y="923.5" class="ms-tag-text">M5 (Oct W4)</text>
+        <text x="1141" y="937" class="ms-title">Mobile APK Release & Viva Defense</text>
+        <text x="1141" y="948" class="ms-desc">Expo Mobile Build, Bound Report & Final Defense</text>
+    </g>
+
+    <!-- Footer -->
+    <line x1="30" y1="988" x2="1410" y2="988" class="footer-line" />
+    <text x="720" y="1006" class="footer-text1">Kristu Jayanti College Autonomous · Bengaluru | Department of Computer Science | Petsy Project Documentation</text>
+    <text x="720" y="1020" class="footer-text2">Methodology: Agile/Scrum SDLC Lifecycle with Bi-Weekly Sprints · Total Project Duration: 12 Calendar Weeks</text>
+</svg>
