@@ -1,0 +1,23 @@
+node_modules/
+.expo/
+dist/
+npm-debug.*
+*.log
+
+# Secrets — never commit
+web/.env
+*.db
+
+# Vercel
+.vercel
+
+# Temp uploads / data (local dev only)
+web/uploads/
+web/data/
+
+# Dev notes
+web/user_prompt.txt
+web/user_prompt_full.txt
+
+# SQL migration files (keep locally only)
+web/*.sql
