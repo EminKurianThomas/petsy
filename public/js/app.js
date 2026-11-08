@@ -4,19 +4,12 @@
 
 'use strict';
 
-// ─── Utilities ────────────────────────────────────────────────────────────────
-function esc(str) {
-  return String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-window.esc = esc;
-
 // ─── State ────────────────────────────────────────────────────────────────────
 const state = {
   user: null,
   pets: [],
   reminders: [],
   records: [],
-  documents: [],
   activePetId: null,
   currentPage: 'home',
 };
@@ -26,13 +19,13 @@ const PET_PALETTE = ['#1B5E47', '#FF6B35', '#3B6EA5', '#9B5CBF', '#C9772B', '#2E
 const PET_EMOJIS = ['🐶', '🐱', '🐰', '🐹', '🦜', '🐠', '🐍', '🦎', '🐢', '🐾', '🦮', '🐈', '🐇', '🦙', '🐴', '🦆'];
 
 const CATEGORY_META = {
-  vaccine:  { icon: '💉', bg: 'var(--primary-tint)', fg: 'var(--primary-deep)', label: 'Vaccine' },
-  med:      { icon: '💊', bg: 'var(--gold-tint)',    fg: '#8A5A10',             label: 'Medication' },
-  groom:    { icon: '✂️', bg: 'var(--accent-tint)',  fg: 'var(--accent-deep)',  label: 'Grooming' },
-  vet:      { icon: '🩺', bg: 'var(--primary-tint)', fg: 'var(--primary-deep)', label: 'Vet Visit' },
-  deworm:   { icon: '🪱', bg: 'var(--gold-tint)',    fg: '#8A5A10',             label: 'Deworming' },
-  dental:   { icon: '🦷', bg: 'var(--teal-tint)',    fg: 'var(--teal)',         label: 'Dental' },
-  flea:     { icon: '🦟', bg: 'var(--purple-tint)',  fg: 'var(--purple)',       label: 'Flea/Tick' },
+  vaccine: { icon: '💉', bg: 'var(--primary-tint)', fg: 'var(--primary-deep)', label: 'Vaccine' },
+  med: { icon: '💊', bg: 'var(--gold-tint)', fg: '#8A5A10', label: 'Medication' },
+  groom: { icon: '✂️', bg: 'var(--accent-tint)', fg: 'var(--accent-deep)', label: 'Grooming' },
+  vet: { icon: '🩺', bg: 'var(--primary-tint)', fg: 'var(--primary-deep)', label: 'Vet Visit' },
+  deworm: { icon: '🪱', bg: 'var(--gold-tint)', fg: '#8A5A10', label: 'Deworming' },
+  dental: { icon: '🦷', bg: 'var(--teal-tint)', fg: 'var(--teal)', label: 'Dental' },
+  flea: { icon: '🦟', bg: 'var(--purple-tint)', fg: 'var(--purple)', label: 'Flea/Tick' },
 };
 
 const RECORD_TYPES = [
@@ -40,7 +33,6 @@ const RECORD_TYPES = [
   { key: 'prescriptions', label: '💊 Meds' },
   { key: 'treatments', label: '🩺 Treatments' },
   { key: 'allergies', label: '⚠️ Allergies' },
-  { key: 'documents', label: '📁 Documents & Photos' },
 ];
 
 // ─── Theme ────────────────────────────────────────────────────────────────────
@@ -65,9 +57,6 @@ function getTheme() {
 // Apply saved theme immediately
 applyTheme(getTheme());
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   KUTTO ANIMATION ENGINE — Petsy Edition
-   ═══════════════════════════════════════════════════════════════════════════ */
 
 // ─── Scroll Reveal Observer ───────────────────────────────────────────────────
 const _revealObserver = new IntersectionObserver((entries) => {
@@ -81,7 +70,7 @@ const _revealObserver = new IntersectionObserver((entries) => {
 
 function observeReveals(root = document) {
   root.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale')
-      .forEach(el => _revealObserver.observe(el));
+    .forEach(el => _revealObserver.observe(el));
 }
 
 // ─── Staggered Page Content Animator ─────────────────────────────────────────
@@ -123,7 +112,7 @@ function addRipple(e) {
   const ripple = document.createElement('span');
   ripple.className = 'ripple-wave';
   ripple.style.left = `${x}px`;
-  ripple.style.top  = `${y}px`;
+  ripple.style.top = `${y}px`;
   btn.appendChild(ripple);
   ripple.addEventListener('animationend', () => ripple.remove());
 }
@@ -175,29 +164,25 @@ async function api(method, url, body) {
 }
 
 const API = {
-  me:              ()          => api('GET',    '/api/auth/me'),
-  login:           (b)        => api('POST',   '/api/auth/login', b),
-  register:        (b)        => api('POST',   '/api/auth/register', b),
-  logout:          ()         => api('POST',   '/api/auth/logout'),
-  updateProfile:   (b)        => api('PATCH',  '/api/auth/profile', b),
-  changePassword:  (b)        => api('POST',   '/api/auth/change-password', b),
-  getPets:         ()         => api('GET',    '/api/pets'),
-  createPet:       (b)        => api('POST',   '/api/pets', b),
-  updatePet:       (id, b)    => api('PUT',    `/api/pets/${id}`, b),
-  deletePet:       (id)       => api('DELETE', `/api/pets/${id}`),
-  logWeight:       (id, w)    => api('POST',   `/api/pets/${id}/weight`, { weight: w }),
-  setActivePet:    (id)       => api('POST',   '/api/pets/active', { petId: id }),
-  getReminders:    ()         => api('GET',    '/api/reminders'),
-  createReminder:  (b)        => api('POST',   '/api/reminders', b),
-  cycleReminder:   (id)       => api('PATCH',  `/api/reminders/${id}/cycle`),
-  deleteReminder:  (id)       => api('DELETE', `/api/reminders/${id}`),
-  getRecords:      ()         => api('GET',    '/api/records'),
-  createRecord:    (b)        => api('POST',   '/api/records', b),
-  deleteRecord:    (id)       => api('DELETE', `/api/records/${id}`),
-  getDocuments:    (petId)    => api('GET',    '/api/documents' + (petId ? `?petId=${petId}` : '')),
-  uploadDocument:  (b)        => api('POST',   '/api/documents', b),
-  updateDocument:  (id, b)    => api('PUT',    `/api/documents/${id}`, b),
-  deleteDocument:  (id)       => api('DELETE', `/api/documents/${id}`),
+  me: () => api('GET', '/api/auth/me'),
+  login: (b) => api('POST', '/api/auth/login', b),
+  register: (b) => api('POST', '/api/auth/register', b),
+  logout: () => api('POST', '/api/auth/logout'),
+  updateProfile: (b) => api('PATCH', '/api/auth/profile', b),
+  changePassword: (b) => api('POST', '/api/auth/change-password', b),
+  getPets: () => api('GET', '/api/pets'),
+  createPet: (b) => api('POST', '/api/pets', b),
+  updatePet: (id, b) => api('PUT', `/api/pets/${id}`, b),
+  deletePet: (id) => api('DELETE', `/api/pets/${id}`),
+  logWeight: (id, w) => api('POST', `/api/pets/${id}/weight`, { weight: w }),
+  setActivePet: (id) => api('POST', '/api/pets/active', { petId: id }),
+  getReminders: () => api('GET', '/api/reminders'),
+  createReminder: (b) => api('POST', '/api/reminders', b),
+  cycleReminder: (id) => api('PATCH', `/api/reminders/${id}/cycle`),
+  deleteReminder: (id) => api('DELETE', `/api/reminders/${id}`),
+  getRecords: () => api('GET', '/api/records'),
+  createRecord: (b) => api('POST', '/api/records', b),
+  deleteRecord: (id) => api('DELETE', `/api/records/${id}`),
 };
 
 // ─── Toast ────────────────────────────────────────────────────────────────────
@@ -257,7 +242,7 @@ async function modalSave() {
   btn.innerHTML = '<span style="display:inline-block;animation:spin 0.7s linear infinite;margin-right:6px">⟳</span>Saving…';
   try {
     await _modalSaveFn();
-  } catch(e) {
+  } catch (e) {
     showToast(e.message || 'Failed to save', 'error');
   } finally {
     if (btn) { btn.disabled = false; btn.textContent = 'Save'; }
@@ -399,7 +384,7 @@ async function handleLogin(e) {
     });
     state.user = user.user;
     await loadApp();
-  } catch(err) {
+  } catch (err) {
     showAuthError(err.message);
   } finally {
     btn.disabled = false;
@@ -441,7 +426,7 @@ async function handleRegister(e) {
     });
     state.user = res.user;
     await loadApp();
-  } catch(err) {
+  } catch (err) {
     showAuthError(err.message);
   } finally {
     btn.disabled = false;
@@ -450,25 +435,21 @@ async function handleRegister(e) {
 }
 
 async function handleLogout() {
-  await API.logout().catch(() => {});
-  state.user = null; state.pets = []; state.reminders = []; state.records = []; state.documents = [];
+  await API.logout().catch(() => { });
+  state.user = null; state.pets = []; state.reminders = []; state.records = [];
   state.activePetId = null;
   showApp(false);
 }
 
 // ─── Data Loading ─────────────────────────────────────────────────────────────
 async function loadAppData() {
-  const [pets, reminders, records, documents] = await Promise.all([
-    API.getPets().catch(() => []),
-    API.getReminders().catch(() => []),
-    API.getRecords().catch(() => []),
-    API.getDocuments().catch(() => []),
+  const [pets, reminders, records] = await Promise.all([
+    API.getPets(), API.getReminders(), API.getRecords(),
   ]);
-  state.pets = pets || [];
-  state.reminders = reminders || [];
-  state.records = records || [];
-  state.documents = documents || [];
-  state.activePetId = (state.user && state.user.active_pet_id) || (pets[0] && pets[0].id);
+  state.pets = pets;
+  state.reminders = reminders;
+  state.records = records;
+  state.activePetId = state.user.active_pet_id || (pets[0] && pets[0].id);
 }
 
 async function loadApp() {
@@ -560,9 +541,9 @@ function closeSidebar() {
 function navigate(page) {
   closeSidebar();
   state.currentPage = page;
-  const pages = ['home', 'reminders', 'records', 'nutrition', 'profile', 'settings'];
+  const pages = ['home', 'reminders', 'records', 'profile', 'settings'];
   pages.forEach(p => {
-    document.getElementById(`page-${p}`)?.classList.toggle('hidden', p !== page);
+    document.getElementById(`page-${p}`).classList.toggle('hidden', p !== page);
     document.getElementById(`nav-${p}`)?.classList.toggle('active', p === page);
     document.getElementById(`bnav-${p}`)?.classList.toggle('active', p === page);
   });
@@ -572,7 +553,6 @@ function navigate(page) {
     home: renderHome,
     reminders: renderReminders,
     records: renderRecords,
-    nutrition: renderNutrition,
     profile: renderProfile,
     settings: renderSettings,
   };
@@ -588,7 +568,7 @@ function getActivePet() {
 
 async function switchPet(id) {
   state.activePetId = id;
-  await API.setActivePet(id).catch(() => {});
+  await API.setActivePet(id).catch(() => { });
   navigate(state.currentPage);
 }
 
@@ -921,7 +901,7 @@ function renderReminders() {
   // Filter chips
   const chips = document.createElement('div');
   chips.className = 'chip-select';
-  const filters = [{ label: 'All', value: 'all' }, ...Object.entries(CATEGORY_META).map(([k,v]) => ({ label: v.label, value: k }))];
+  const filters = [{ label: 'All', value: 'all' }, ...Object.entries(CATEGORY_META).map(([k, v]) => ({ label: v.label, value: k }))];
   filters.forEach(f => {
     const chip = document.createElement('button');
     chip.className = 'chip' + (remFilter === f.value ? ' active' : '');
@@ -937,10 +917,10 @@ function renderReminders() {
   sortBar.innerHTML = `
     <label>Sort:</label>
     <select class="sort-select" id="rem-sort" onchange="remSort=this.value;renderReminders()">
-      <option value="date-asc" ${remSort==='date-asc'?'selected':''}>Due Date ↑</option>
-      <option value="date-desc" ${remSort==='date-desc'?'selected':''}>Due Date ↓</option>
-      <option value="status" ${remSort==='status'?'selected':''}>Status</option>
-      <option value="category" ${remSort==='category'?'selected':''}>Category</option>
+      <option value="date-asc" ${remSort === 'date-asc' ? 'selected' : ''}>Due Date ↑</option>
+      <option value="date-desc" ${remSort === 'date-desc' ? 'selected' : ''}>Due Date ↓</option>
+      <option value="status" ${remSort === 'status' ? 'selected' : ''}>Status</option>
+      <option value="category" ${remSort === 'category' ? 'selected' : ''}>Category</option>
     </select>
     <span style="font-size:11px;color:var(--ink-muted);margin-left:auto">Click status badge to cycle • × to delete</span>`;
   container.appendChild(sortBar);
@@ -954,7 +934,7 @@ function renderReminders() {
   if (remFilter !== 'all') items = items.filter(r => r.cat === remFilter);
   if (remSearch.trim()) {
     const q = remSearch.toLowerCase();
-    items = items.filter(r => r.title.toLowerCase().includes(q) || (r.meta||'').toLowerCase().includes(q));
+    items = items.filter(r => r.title.toLowerCase().includes(q) || (r.meta || '').toLowerCase().includes(q));
   }
 
   // Auto-upgrade status for overdue due dates
@@ -970,9 +950,9 @@ function renderReminders() {
   items.sort((a, b) => {
     if (remSort === 'status') {
       const o = { overdue: 0, upcoming: 1, done: 2 };
-      return (o[a._displayStatus]||1) - (o[b._displayStatus]||1);
+      return (o[a._displayStatus] || 1) - (o[b._displayStatus] || 1);
     }
-    if (remSort === 'category') return (a.cat||'').localeCompare(b.cat||'');
+    if (remSort === 'category') return (a.cat || '').localeCompare(b.cat || '');
     if (remSort === 'date-desc') {
       const aD = a.due_date ? new Date(a.due_date) : new Date(Number(a.created_at));
       const bD = b.due_date ? new Date(b.due_date) : new Date(Number(b.created_at));
@@ -1046,7 +1026,7 @@ function makeReminderItem(r, onClick, onDelete, showDue = false) {
       ${r.meta ? `<div class="reminder-meta">${esc(r.meta)}</div>` : ''}
       ${dueHtml}
     </div>
-    <span class="reminder-status ${statusClass}" style="cursor:${onClick?'pointer':'default'}">${displayStatus}</span>
+    <span class="reminder-status ${statusClass}" style="cursor:${onClick ? 'pointer' : 'default'}">${displayStatus}</span>
     ${onDelete ? '<button class="reminder-delete" title="Delete">✕</button>' : ''}`;
 
   if (onClick) el.addEventListener('click', (e) => {
@@ -1109,12 +1089,6 @@ function renderRecords() {
   });
   container.appendChild(tabs);
 
-  // If Documents tab is active, render full Document Management System
-  if (recordTab === 'documents') {
-    renderDocumentsTab(container, pet);
-    return;
-  }
-
   // Search
   const searchBar = document.createElement('div');
   searchBar.className = 'search-bar';
@@ -1133,7 +1107,7 @@ function renderRecords() {
   let entries = state.records.filter(r => r.pet_id === pet.id && r.type === recordTab);
   if (recordSearch.trim()) {
     const q = recordSearch.toLowerCase();
-    entries = entries.filter(r => r.title.toLowerCase().includes(q) || (r.meta||'').toLowerCase().includes(q) || (r.doctor||'').toLowerCase().includes(q));
+    entries = entries.filter(r => r.title.toLowerCase().includes(q) || (r.meta || '').toLowerCase().includes(q) || (r.doctor || '').toLowerCase().includes(q));
   }
 
   if (entries.length) {
@@ -1166,7 +1140,7 @@ function renderRecords() {
       card.appendChild(row);
     });
   } else {
-    card.innerHTML = `<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-title">No entries yet</div><div class="empty-desc">Tap + to log a ${RECORD_TYPES.find(t=>t.key===recordTab)?.label || 'record'}.</div></div>`;
+    card.innerHTML = `<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-title">No entries yet</div><div class="empty-desc">Tap + to log a ${RECORD_TYPES.find(t => t.key === recordTab)?.label || 'record'}.</div></div>`;
   }
   container.appendChild(card);
 
@@ -1182,414 +1156,6 @@ function renderRecords() {
   }
   fab.onclick = () => showAddRecordModal(pet.id, recordTab);
   fab.style.display = 'flex';
-}
-
-// ─── DOCUMENT MANAGEMENT SYSTEM ───────────────────────────────────────────────
-let docCategoryFilter = 'All';
-let docSearchQuery = '';
-
-const DOC_CATEGORIES = [
-  { key: 'All', label: 'All', icon: '📂', color: 'var(--ink)' },
-  { key: 'Vaccination', label: 'Vaccination', icon: '💉', color: 'var(--primary)' },
-  { key: 'Medical Reports', label: 'Medical Reports', icon: '🔬', color: 'var(--teal)' },
-  { key: 'Prescriptions', label: 'Prescriptions', icon: '💊', color: 'var(--gold)' },
-  { key: 'Bills', label: 'Bills', icon: '🧾', color: 'var(--accent)' },
-  { key: 'Photos', label: 'Photos', icon: '📸', color: 'var(--purple)' },
-  { key: 'Others', label: 'Others', icon: '📁', color: 'var(--ink-soft)' },
-];
-
-function renderDocumentsTab(container, pet) {
-  const wrap = document.createElement('div');
-  wrap.className = 'doc-manager-wrap';
-
-  // Header Actions
-  const headerActions = document.createElement('div');
-  headerActions.className = 'doc-header-actions';
-  headerActions.innerHTML = `
-    <div>
-      <h3 style="font-size:16px;font-weight:800;color:var(--ink);margin:0">Files & Documents</h3>
-      <div style="font-size:12px;color:var(--ink-soft);margin-top:2px">Certificates, prescriptions, bills & photos for ${esc(pet.name)}</div>
-    </div>
-    <div style="display:flex;gap:8px">
-      <button class="btn btn-primary" onclick="showUploadDocumentModal('${pet.id}')" style="font-size:12.5px;padding:8px 14px">
-        <span>+ Upload File</span>
-      </button>
-      <button class="btn btn-ghost" onclick="triggerCameraCapture('${pet.id}')" style="font-size:12.5px;padding:8px 12px;border:1px solid var(--line)" title="Take Photo">
-        <span>📷 Camera</span>
-      </button>
-    </div>
-    <input type="file" id="doc-cam-input" accept="image/*" capture="environment" style="display:none" onchange="handleCamCapture(event, '${pet.id}')" />
-    <input type="file" id="doc-file-picker" accept=".jpg,.jpeg,.png,.webp,.pdf,image/*,application/pdf" style="display:none" onchange="handleCamCapture(event, '${pet.id}')" />
-  `;
-  wrap.appendChild(headerActions);
-
-  // Drag and Drop Zone
-  const dropzone = document.createElement('div');
-  dropzone.className = 'doc-dropzone';
-  dropzone.innerHTML = `
-    <div class="doc-dropzone-icon">☁️</div>
-    <div class="doc-dropzone-text">Click or drag & drop files here</div>
-    <div class="doc-dropzone-sub">Supports JPG, PNG, WEBP, PDF (camera or file picker)</div>
-  `;
-  dropzone.onclick = () => document.getElementById('doc-file-picker').click();
-
-  ['dragenter', 'dragover'].forEach(evt => {
-    dropzone.addEventListener(evt, (e) => { e.preventDefault(); dropzone.classList.add('drag-over'); });
-  });
-  ['dragleave', 'drop'].forEach(evt => {
-    dropzone.addEventListener(evt, (e) => { e.preventDefault(); dropzone.classList.remove('drag-over'); });
-  });
-  dropzone.addEventListener('drop', (e) => {
-    const files = e.dataTransfer?.files;
-    if (files && files.length > 0) {
-      handleCamCapture({ target: { files } }, pet.id);
-    }
-  });
-  wrap.appendChild(dropzone);
-
-  // Filter Documents for this pet
-  let petDocs = (state.documents || []).filter(d => d.petId === pet.id);
-
-  // Category filter chips
-  const chipsRow = document.createElement('div');
-  chipsRow.className = 'doc-cat-chips';
-  DOC_CATEGORIES.forEach(cat => {
-    const count = cat.key === 'All' ? petDocs.length : petDocs.filter(d => d.category === cat.key).length;
-    const chip = document.createElement('button');
-    chip.className = 'chip' + (docCategoryFilter === cat.key ? ' active' : '');
-    chip.innerHTML = `${cat.icon} ${cat.label} <span style="opacity:0.75;font-size:10px;margin-left:4px">(${count})</span>`;
-    chip.onclick = () => { docCategoryFilter = cat.key; renderRecords(); };
-    chipsRow.appendChild(chip);
-  });
-  wrap.appendChild(chipsRow);
-
-  // Search input
-  const searchBar = document.createElement('div');
-  searchBar.className = 'search-bar';
-  searchBar.style.margin = '4px 0 10px 0';
-  searchBar.innerHTML = `
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-    </svg>
-    <input class="search-input" id="doc-search-inp" placeholder="Search documents, prescriptions, bills…"
-      value="${esc(docSearchQuery)}" oninput="docSearchQuery=this.value;renderRecords()" />`;
-  wrap.appendChild(searchBar);
-
-  // Apply filters
-  let filteredDocs = petDocs;
-  if (docCategoryFilter !== 'All') {
-    filteredDocs = filteredDocs.filter(d => d.category === docCategoryFilter);
-  }
-  if (docSearchQuery.trim()) {
-    const q = docSearchQuery.toLowerCase();
-    filteredDocs = filteredDocs.filter(d =>
-      (d.title || '').toLowerCase().includes(q) ||
-      (d.description || '').toLowerCase().includes(q) ||
-      (d.fileName || '').toLowerCase().includes(q) ||
-      (d.category || '').toLowerCase().includes(q)
-    );
-  }
-
-  // Documents Grid
-  if (!filteredDocs.length) {
-    const empty = document.createElement('div');
-    empty.className = 'card';
-    empty.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-icon">📁</div>
-        <div class="empty-title">No documents found</div>
-        <div class="empty-desc">Upload certificates, prescriptions, vet bills, or photos for ${esc(pet.name)}.</div>
-        <button class="btn btn-primary" onclick="showUploadDocumentModal('${pet.id}')" style="margin-top:12px;font-size:13px">
-          + Upload Document
-        </button>
-      </div>`;
-    wrap.appendChild(empty);
-  } else {
-    const grid = document.createElement('div');
-    grid.className = 'doc-grid';
-
-    filteredDocs.forEach(doc => {
-      const card = document.createElement('div');
-      card.className = 'doc-card reveal';
-
-      const isPdf = (doc.fileType && doc.fileType.includes('pdf')) || (doc.fileName && doc.fileName.toLowerCase().endsWith('.pdf'));
-      const catMeta = DOC_CATEGORIES.find(c => c.key === doc.category) || DOC_CATEGORIES[6];
-
-      let thumbHtml = '';
-      if (isPdf) {
-        thumbHtml = `
-          <div class="doc-thumb" onclick="previewDocument('${doc.id}')">
-            <div class="doc-thumb-pdf">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="16" y1="13" x2="8" y2="13"></line>
-                <line x1="16" y1="17" x2="8" y2="17"></line>
-                <polyline points="10 9 9 9 8 9"></polyline>
-              </svg>
-              <span>PDF Document</span>
-            </div>
-          </div>`;
-      } else if (doc.fileUrl) {
-        thumbHtml = `
-          <div class="doc-thumb" onclick="previewDocument('${doc.id}')">
-            <img src="${doc.fileUrl}" alt="${esc(doc.title)}" loading="lazy" />
-          </div>`;
-      } else {
-        thumbHtml = `
-          <div class="doc-thumb" onclick="previewDocument('${doc.id}')">
-            <div style="font-size:38px">${catMeta.icon}</div>
-          </div>`;
-      }
-
-      const sizeStr = doc.fileSize ? (doc.fileSize > 1024 * 1024 ? (doc.fileSize / (1024*1024)).toFixed(1) + ' MB' : Math.round(doc.fileSize / 1024) + ' KB') : '';
-
-      card.innerHTML = `
-        ${thumbHtml}
-        <div class="doc-card-body">
-          <span class="doc-badge" style="background:${catMeta.color}18;color:${catMeta.color}">${catMeta.icon} ${esc(doc.category)}</span>
-          <div class="doc-title">${esc(doc.title)}</div>
-          ${doc.description ? `<div class="doc-desc">${esc(doc.description)}</div>` : ''}
-          <div class="doc-meta">
-            <span>📅 ${formatDate(doc.date || doc.createdAt)}</span>
-            <span>${sizeStr ? '💾 ' + sizeStr : ''}</span>
-          </div>
-        </div>
-        <div class="doc-actions">
-          <button class="doc-action-btn" onclick="previewDocument('${doc.id}')" title="Preview">👁️ View</button>
-          <button class="doc-action-btn" onclick="downloadDocument('${doc.id}')" title="Download">⬇️</button>
-          <button class="doc-action-btn" onclick="showEditDocumentModal('${doc.id}')" title="Rename / Edit">✏️</button>
-          <button class="doc-action-btn btn-delete" onclick="handleDeleteDocument('${doc.id}', '${esc(doc.title)}')" title="Delete">🗑️</button>
-        </div>
-      `;
-      grid.appendChild(card);
-    });
-
-    wrap.appendChild(grid);
-  }
-
-  container.appendChild(wrap);
-
-  // FAB for documents
-  let fab = document.getElementById('records-fab');
-  if (fab) {
-    fab.onclick = () => showUploadDocumentModal(pet.id);
-  }
-}
-
-function triggerCameraCapture(petId) {
-  const cam = document.getElementById('doc-cam-input');
-  if (cam) cam.click();
-}
-
-function handleCamCapture(e, petId) {
-  const file = e.target.files && e.target.files[0];
-  if (!file) return;
-  showUploadDocumentModal(petId, null, file);
-}
-
-function showUploadDocumentModal(petId, defaultCat, fileObj) {
-  let fileDataUrl = '';
-  let selectedFile = fileObj || null;
-  const today = new Date().toISOString().split('T')[0];
-
-  const catOpts = DOC_CATEGORIES.filter(c => c.key !== 'All').map(c =>
-    `<option value="${c.key}" ${c.key === defaultCat ? 'selected' : ''}>${c.icon} ${c.label}</option>`
-  ).join('');
-
-  openModal('Upload Document', `
-    <div class="field">
-      <label class="field-label">Select File / Photo *</label>
-      <input type="file" id="up-file" class="field-input" accept=".jpg,.jpeg,.png,.webp,.pdf,image/*,application/pdf" />
-      <div id="up-file-preview" style="margin-top:10px;text-align:center;display:none"></div>
-    </div>
-    <div class="field">
-      <label class="field-label">Document Title *</label>
-      <input id="up-title" class="field-input" placeholder="e.g. Annual Rabies Vaccine Certificate" />
-    </div>
-    <div class="field">
-      <label class="field-label">Category *</label>
-      <select id="up-cat" class="field-input">${catOpts}</select>
-    </div>
-    <div class="field">
-      <label class="field-label">Date</label>
-      <input id="up-date" type="date" class="field-input" value="${today}" />
-    </div>
-    <div class="field">
-      <label class="field-label">Description / Notes (Optional)</label>
-      <textarea id="up-desc" class="field-input" rows="2" placeholder="e.g. Administered at City Vet Hospital, valid until 2027"></textarea>
-    </div>
-    <div id="up-progress" style="display:none;margin-top:12px">
-      <div style="font-size:12px;color:var(--primary);font-weight:700;margin-bottom:4px">Uploading file…</div>
-      <div style="height:6px;background:var(--bg2);border-radius:3px;overflow:hidden">
-        <div style="height:100%;background:var(--primary);width:100%;animation:pulse 1s infinite"></div>
-      </div>
-    </div>
-  `, async () => {
-    const title = document.getElementById('up-title').value.trim();
-    if (!title) { showToast('Title is required', 'error'); throw new Error('Title required'); }
-
-    const fileInput = document.getElementById('up-file');
-    const file = selectedFile || (fileInput.files && fileInput.files[0]);
-
-    if (!file && !fileDataUrl) {
-      showToast('Please select a file to upload', 'error');
-      throw new Error('File required');
-    }
-
-    const prog = document.getElementById('up-progress');
-    if (prog) prog.style.display = 'block';
-
-    const cat = document.getElementById('up-cat').value;
-    const date = document.getElementById('up-date').value;
-    const desc = document.getElementById('up-desc').value.trim();
-
-    const payload = {
-      petId,
-      title,
-      category: cat,
-      description: desc,
-      date,
-      fileName: file ? file.name : 'document',
-      fileType: file ? file.type : 'application/octet-stream',
-      fileSize: file ? file.size : 0,
-      fileData: fileDataUrl,
-    };
-
-    const newDoc = await API.uploadDocument(payload);
-    state.documents = [newDoc, ...(state.documents || [])];
-    closeModal();
-    showToast('Document saved successfully! 📁');
-    renderRecords();
-  }, 'Upload Document');
-
-  function setupFile(file) {
-    selectedFile = file;
-    const titleInput = document.getElementById('up-title');
-    if (titleInput && !titleInput.value) {
-      const cleanName = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
-      titleInput.value = cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
-    }
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      fileDataUrl = e.target.result;
-      const prev = document.getElementById('up-file-preview');
-      if (!prev) return;
-      prev.style.display = 'block';
-      if (file.type && file.type.startsWith('image/')) {
-        prev.innerHTML = `<img src="${fileDataUrl}" style="max-height:160px;max-width:100%;border-radius:10px;box-shadow:var(--shadow-sm)" />`;
-      } else {
-        prev.innerHTML = `<div style="padding:16px;background:var(--bg2);border-radius:10px;font-size:13px;color:var(--ink)">📄 <strong>${esc(file.name)}</strong> (${(file.size/1024).toFixed(1)} KB)</div>`;
-      }
-    };
-    reader.readAsDataURL(file);
-  }
-
-  setTimeout(() => {
-    const input = document.getElementById('up-file');
-    if (fileObj) setupFile(fileObj);
-    input?.addEventListener('change', (e) => {
-      if (e.target.files && e.target.files[0]) setupFile(e.target.files[0]);
-    });
-  }, 80);
-}
-
-function showEditDocumentModal(docId) {
-  const doc = (state.documents || []).find(d => d.id === docId);
-  if (!doc) return;
-
-  const catOpts = DOC_CATEGORIES.filter(c => c.key !== 'All').map(c =>
-    `<option value="${c.key}" ${c.key === doc.category ? 'selected' : ''}>${c.icon} ${c.label}</option>`
-  ).join('');
-
-  openModal('Edit Document', `
-    <div class="field">
-      <label class="field-label">Document Title *</label>
-      <input id="ed-title" class="field-input" value="${esc(doc.title)}" />
-    </div>
-    <div class="field">
-      <label class="field-label">Category</label>
-      <select id="ed-cat" class="field-input">${catOpts}</select>
-    </div>
-    <div class="field">
-      <label class="field-label">Date</label>
-      <input id="ed-date" type="date" class="field-input" value="${doc.date || ''}" />
-    </div>
-    <div class="field">
-      <label class="field-label">Description / Notes</label>
-      <textarea id="ed-desc" class="field-input" rows="3">${esc(doc.description || '')}</textarea>
-    </div>
-  `, async () => {
-    const title = document.getElementById('ed-title').value.trim();
-    if (!title) { showToast('Title is required', 'error'); throw new Error('Title required'); }
-
-    const updated = await API.updateDocument(docId, {
-      title,
-      category: document.getElementById('ed-cat').value,
-      date: document.getElementById('ed-date').value,
-      description: document.getElementById('ed-desc').value.trim(),
-    });
-
-    Object.assign(doc, updated);
-    closeModal();
-    showToast('Document updated ✓');
-    renderRecords();
-  }, 'Save Changes');
-}
-
-function previewDocument(docId) {
-  const doc = (state.documents || []).find(d => d.id === docId);
-  if (!doc) return;
-
-  const isPdf = (doc.fileType && doc.fileType.includes('pdf')) || (doc.fileName && doc.fileName.toLowerCase().endsWith('.pdf'));
-
-  if (isPdf) {
-    openModal(doc.title, `
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <span style="font-size:13px;color:var(--ink-soft)">📄 ${esc(doc.fileName || 'PDF Document')}</span>
-        <a href="${doc.fileUrl}" target="_blank" class="btn btn-primary" style="font-size:12px;padding:6px 12px;text-decoration:none">
-          Open in New Tab ↗
-        </a>
-      </div>
-      <iframe src="${doc.fileUrl}" style="width:100%;height:65vh;border:1px solid var(--line);border-radius:10px"></iframe>
-    `, () => closeModal(), 'Done');
-  } else {
-    openModal(doc.title, `
-      <div style="text-align:center">
-        <img src="${doc.fileUrl}" alt="${esc(doc.title)}" style="max-width:100%;max-height:70vh;border-radius:12px;box-shadow:var(--shadow-md)" />
-        ${doc.description ? `<p style="font-size:13px;color:var(--ink-soft);margin-top:12px">${esc(doc.description)}</p>` : ''}
-      </div>
-    `, () => closeModal(), 'Done');
-  }
-}
-
-function downloadDocument(docId) {
-  const doc = (state.documents || []).find(d => d.id === docId);
-  if (!doc || !doc.fileUrl) { showToast('File unavailable for download', 'error'); return; }
-
-  const link = document.createElement('a');
-  link.href = doc.fileUrl;
-  link.download = doc.fileName || `${doc.title}.${(doc.fileType && doc.fileType.includes('pdf')) ? 'pdf' : 'jpg'}`;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  showToast('Download started ⬇️');
-}
-
-async function handleDeleteDocument(docId, title) {
-  openModal('Delete Document', `
-    <div style="text-align:center;padding:12px 0">
-      <div style="font-size:48px;margin-bottom:12px">⚠️</div>
-      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:6px">Delete "${esc(title)}"?</div>
-      <div style="font-size:13px;color:var(--ink-soft)">This will permanently remove this file from your pet's records.</div>
-    </div>
-  `, async () => {
-    await API.deleteDocument(docId);
-    state.documents = (state.documents || []).filter(d => d.id !== docId);
-    closeModal();
-    showToast('Document deleted');
-    renderRecords();
-  }, '🗑 Delete File');
 }
 
 function exportRecords(petId) {
@@ -1761,24 +1327,24 @@ function renderGrowthChart(container, data, dates, color, unit) {
     x: pad.l + (i / (data.length - 1)) * (W - pad.l - pad.r),
     y: pad.t + (1 - (v - min) / range) * (H - pad.t - pad.b),
     v,
-    date: dates[i] ? formatDateShort(dates[i]) : `#${i+1}`,
+    date: dates[i] ? formatDateShort(dates[i]) : `#${i + 1}`,
   }));
 
   const smooth = (points) => {
     if (points.length < 2) return `M ${points[0].x},${points[0].y}`;
     let d = `M ${points[0].x},${points[0].y}`;
     for (let i = 0; i < points.length - 1; i++) {
-      const cp1x = points[i].x + (points[i+1].x - points[i].x) / 3;
+      const cp1x = points[i].x + (points[i + 1].x - points[i].x) / 3;
       const cp1y = points[i].y;
-      const cp2x = points[i].x + 2 * (points[i+1].x - points[i].x) / 3;
-      const cp2y = points[i+1].y;
-      d += ` C ${cp1x},${cp1y} ${cp2x},${cp2y} ${points[i+1].x},${points[i+1].y}`;
+      const cp2x = points[i].x + 2 * (points[i + 1].x - points[i].x) / 3;
+      const cp2y = points[i + 1].y;
+      d += ` C ${cp1x},${cp1y} ${cp2x},${cp2y} ${points[i + 1].x},${points[i + 1].y}`;
     }
     return d;
   };
 
   const linePath = smooth(pts);
-  const areaPath = `M ${pts[0].x},${H - pad.b} ` + linePath.replace(/^M [0-9.]+,[0-9.]+/, `L ${pts[0].x},${pts[0].y}`) + ` L ${pts[pts.length-1].x},${H - pad.b} Z`;
+  const areaPath = `M ${pts[0].x},${H - pad.b} ` + linePath.replace(/^M [0-9.]+,[0-9.]+/, `L ${pts[0].x},${pts[0].y}`) + ` L ${pts[pts.length - 1].x},${H - pad.b} Z`;
 
   const gradId = `g${Math.random().toString(36).slice(2)}`;
   const dotRadius = data.length > 8 ? 3 : 5;
@@ -1816,7 +1382,7 @@ function renderGrowthChart(container, data, dates, color, unit) {
       </svg>
     </div>
     ${trendHtml}
-    <div style="text-align:center;font-size:11px;color:var(--ink-muted);margin-top:8px">Latest: <strong style="color:var(--ink)">${data[data.length-1]} ${unit}</strong> · ${data.length} entries</div>`;
+    <div style="text-align:center;font-size:11px;color:var(--ink-muted);margin-top:8px">Latest: <strong style="color:var(--ink)">${data[data.length - 1]} ${unit}</strong> · ${data.length} entries</div>`;
 }
 
 // ─── SETTINGS PAGE ────────────────────────────────────────────────────────────
@@ -1915,9 +1481,9 @@ function renderSettings() {
             <div class="theme-toggle-sub">Choose light, dark, or match your system</div>
           </div>
           <div class="theme-btn-group">
-            <button class="theme-btn ${currentTheme==='light'?'active':''}" onclick="setTheme('light')">☀️ Light</button>
-            <button class="theme-btn ${currentTheme==='dark'?'active':''}" onclick="setTheme('dark')">🌙 Dark</button>
-            <button class="theme-btn ${currentTheme==='system'?'active':''}" onclick="setTheme('system')">💻 System</button>
+            <button class="theme-btn ${currentTheme === 'light' ? 'active' : ''}" onclick="setTheme('light')">☀️ Light</button>
+            <button class="theme-btn ${currentTheme === 'dark' ? 'active' : ''}" onclick="setTheme('dark')">🌙 Dark</button>
+            <button class="theme-btn ${currentTheme === 'system' ? 'active' : ''}" onclick="setTheme('system')">💻 System</button>
           </div>
         </div>
       </div>
@@ -1958,7 +1524,7 @@ function renderSettings() {
         </div>
       </div>
       <div class="settings-section-body">
-        <button class="btn btn-danger" style="width:auto;padding:11px 24px" onclick="handleLogout()">
+        <button class="btn btn-danger" style="width:auto;padding:11px 24px" onclick="confirmLogout()">
           🚪 Sign Out
         </button>
       </div>
@@ -1979,7 +1545,7 @@ async function saveName() {
     state.user.name = name;
     renderSidebar();
     showToast('Name updated ✓');
-  } catch(e) {
+  } catch (e) {
     showToast(e.message, 'error');
   }
 }
@@ -2013,7 +1579,7 @@ async function savePassword() {
     const strength = document.getElementById('s-pw-strength');
     if (strength) strength.style.display = 'none';
     showToast('Password changed successfully! 🔒');
-  } catch(e) {
+  } catch (e) {
     showError(errEl, e.message);
   } finally {
     btn.disabled = false;
@@ -2028,31 +1594,36 @@ function showError(el, msg) {
 }
 
 function confirmLogout() {
-  // Direct logout — no confirmation dialog
-  handleLogout();
+  openModal('Sign Out', `
+    <div style="text-align:center;padding:8px 0">
+      <div style="font-size:48px;margin-bottom:12px">👋</div>
+      <div style="font-size:16px;font-weight:700;color:var(--ink);margin-bottom:6px">Sign out of Petsy?</div>
+      <div style="font-size:13px;color:var(--ink-soft)">You'll need to sign in again to access your pets.</div>
+    </div>
+  `, async () => {
+    await handleLogout();
+  }, 'Sign Out');
 }
 
 // ─── ADD PET MODAL ────────────────────────────────────────────────────────────
 function showAddPetModal() {
   const palHtml = PET_PALETTE.map((c, i) =>
-    `<div class="color-swatch ${i===0?'selected':''}" style="background:${c}" data-color="${c}" onclick="selectColor(this)"></div>`
+    `<div class="color-swatch ${i === 0 ? 'selected' : ''}" style="background:${c}" data-color="${c}" onclick="selectColor(this)"></div>`
   ).join('');
 
   const emojiHtml = PET_EMOJIS.map((e, i) =>
-    `<div class="emoji-avatar-option ${i===0?'selected':''}" data-emoji="${e}" onclick="selectEmoji(this)">${e}</div>`
+    `<div class="emoji-avatar-option ${i === 0 ? 'selected' : ''}" data-emoji="${e}" onclick="selectEmoji(this)">${e}</div>`
   ).join('');
 
   openModal('Add a Pet', `
     <div class="field"><label class="field-label">Name *</label><input id="m-name" class="field-input" placeholder="e.g. Milo" /></div>
     <div class="field">
       <label class="field-label">Species</label>
-      <select id="m-species" class="field-input" onchange="attachBreedAC()">
+      <select id="m-species" class="field-input">
         <option>Dog</option><option>Cat</option><option>Rabbit</option><option>Bird</option><option>Fish</option><option>Reptile</option><option>Other</option>
       </select>
     </div>
-    <div class="field"><label class="field-label">Breed</label>
-      <div class="ac-field-wrap"><input id="m-breed" class="field-input" placeholder="e.g. Golden Retriever — type to search" /></div>
-    </div>
+    <div class="field"><label class="field-label">Breed</label><input id="m-breed" class="field-input" placeholder="e.g. Golden Retriever" /></div>
     <div class="field">
       <label class="field-label">Gender</label>
       <select id="m-gender" class="field-input"><option>Male</option><option>Female</option></select>
@@ -2090,11 +1661,6 @@ function showAddPetModal() {
     showToast(`${name} added! 🐾`);
     navigate(state.currentPage);
   }, 'Add Pet');
-
-  // Attach breed autocomplete after modal opens
-  setTimeout(() => {
-    if (window.AC) AC.attachBreed(document.getElementById('m-breed'), 'm-species');
-  }, 100);
 }
 
 function selectColor(el) {
@@ -2113,11 +1679,11 @@ function showEditPetModal(petId) {
   if (!pet) return;
 
   const palHtml = PET_PALETTE.map(c =>
-    `<div class="color-swatch ${c===pet.color?'selected':''}" style="background:${c}" data-color="${c}" onclick="selectColor(this)"></div>`
+    `<div class="color-swatch ${c === pet.color ? 'selected' : ''}" style="background:${c}" data-color="${c}" onclick="selectColor(this)"></div>`
   ).join('');
 
   const emojiHtml = PET_EMOJIS.map(e =>
-    `<div class="emoji-avatar-option ${e===pet.avatar?'selected':''}" data-emoji="${e}" onclick="selectEmoji(this)">${e}</div>`
+    `<div class="emoji-avatar-option ${e === pet.avatar ? 'selected' : ''}" data-emoji="${e}" onclick="selectEmoji(this)">${e}</div>`
   ).join('');
 
   openModal('Edit Profile', `
@@ -2125,31 +1691,31 @@ function showEditPetModal(petId) {
     <div class="field">
       <label class="field-label">Species</label>
       <select id="em-species" class="field-input">
-        ${['Dog','Cat','Rabbit','Bird','Fish','Reptile','Other'].map(s => `<option${s===pet.species?' selected':''}>${s}</option>`).join('')}
+        ${['Dog', 'Cat', 'Rabbit', 'Bird', 'Fish', 'Reptile', 'Other'].map(s => `<option${s === pet.species ? ' selected' : ''}>${s}</option>`).join('')}
       </select>
     </div>
-    <div class="field"><label class="field-label">Breed</label><input id="em-breed" class="field-input" value="${esc(pet.breed||'')}" /></div>
+    <div class="field"><label class="field-label">Breed</label><input id="em-breed" class="field-input" value="${esc(pet.breed || '')}" /></div>
     <div class="field">
       <label class="field-label">Gender</label>
       <select id="em-gender" class="field-input">
-        <option${pet.gender==='Male'?' selected':''}>Male</option>
-        <option${pet.gender==='Female'?' selected':''}>Female</option>
+        <option${pet.gender === 'Male' ? ' selected' : ''}>Male</option>
+        <option${pet.gender === 'Female' ? ' selected' : ''}>Female</option>
       </select>
     </div>
-    <div class="field"><label class="field-label">Age</label><input id="em-age" class="field-input" value="${esc(pet.age||'')}" placeholder="e.g. 2 yr 4 mo" /></div>
+    <div class="field"><label class="field-label">Age</label><input id="em-age" class="field-input" value="${esc(pet.age || '')}" placeholder="e.g. 2 yr 4 mo" /></div>
     <div class="field"><label class="field-label">Weight</label>
       <div style="display:flex;gap:8px">
-        <input id="em-weight" type="number" step="0.1" class="field-input" value="${pet.weight||''}" style="flex:2" />
+        <input id="em-weight" type="number" step="0.1" class="field-input" value="${pet.weight || ''}" style="flex:2" />
         <select id="em-wunit" class="field-input" style="flex:1">
-          <option${pet.weightUnit==='kg'?' selected':''}>kg</option>
-          <option${pet.weightUnit==='lbs'?' selected':''}>lbs</option>
+          <option${pet.weightUnit === 'kg' ? ' selected' : ''}>kg</option>
+          <option${pet.weightUnit === 'lbs' ? ' selected' : ''}>lbs</option>
         </select>
       </div>
     </div>
-    <div class="field"><label class="field-label">Next Vet Visit</label><input id="em-nextvet" class="field-input" value="${esc(pet.nextVet||'')}" placeholder="e.g. Oct 15, 2025" /></div>
-    <div class="field"><label class="field-label">Microchip ID</label><input id="em-microchip" class="field-input" value="${esc(pet.microchip||'')}" placeholder="e.g. 985112345678901" /></div>
-    <div class="field"><label class="field-label">Insurance</label><input id="em-insurance" class="field-input" value="${esc(pet.insurance||'')}" placeholder="e.g. PetFirst, policy #123" /></div>
-    <div class="field"><label class="field-label">Emergency Vet</label><input id="em-emergencyvet" class="field-input" value="${esc(pet.emergencyVet||'')}" placeholder="e.g. City Animal Hospital, (555) 123-4567" /></div>
+    <div class="field"><label class="field-label">Next Vet Visit</label><input id="em-nextvet" class="field-input" value="${esc(pet.nextVet || '')}" placeholder="e.g. Oct 15, 2025" /></div>
+    <div class="field"><label class="field-label">Microchip ID</label><input id="em-microchip" class="field-input" value="${esc(pet.microchip || '')}" placeholder="e.g. 985112345678901" /></div>
+    <div class="field"><label class="field-label">Insurance</label><input id="em-insurance" class="field-input" value="${esc(pet.insurance || '')}" placeholder="e.g. PetFirst, policy #123" /></div>
+    <div class="field"><label class="field-label">Emergency Vet</label><input id="em-emergencyvet" class="field-input" value="${esc(pet.emergencyVet || '')}" placeholder="e.g. City Animal Hospital, (555) 123-4567" /></div>
     <div class="field"><label class="field-label">Avatar Emoji</label>
       <div class="emoji-avatar-grid" id="emoji-picker">${emojiHtml}</div>
     </div>
@@ -2180,11 +1746,6 @@ function showEditPetModal(petId) {
     showToast('Profile updated ✓');
     navigate(state.currentPage);
   }, 'Save Changes');
-
-  // Attach breed autocomplete for Edit Pet modal
-  setTimeout(() => {
-    if (window.AC) AC.attachBreed(document.getElementById('em-breed'), 'em-species');
-  }, 100);
 }
 
 // ─── DELETE PET ───────────────────────────────────────────────────────────────
@@ -2235,12 +1796,12 @@ function showEditGuidelinesModal(petId) {
   const pet = state.pets.find(p => p.id === petId);
   openModal('Care Guidelines', `
     <p style="font-size:12px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">🍖 Feeding</p>
-    <div class="field"><label class="field-label">Summary</label><input id="gl-ft" class="field-input" value="${esc(pet?.food?.title||'')}" placeholder="e.g. 2 cups, twice daily" /></div>
-    <div class="field"><label class="field-label">Details</label><textarea id="gl-fd" class="field-input" rows="2" placeholder="e.g. Chicken, boiled rice, pumpkin">${esc(pet?.food?.desc||'')}</textarea></div>
+    <div class="field"><label class="field-label">Summary</label><input id="gl-ft" class="field-input" value="${esc(pet?.food?.title || '')}" placeholder="e.g. 2 cups, twice daily" /></div>
+    <div class="field"><label class="field-label">Details</label><textarea id="gl-fd" class="field-input" rows="2">${esc(pet?.food?.desc || '')}</textarea></div>
     <div class="divider" style="margin:12px 0"></div>
     <p style="font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">🏃 Exercise</p>
-    <div class="field"><label class="field-label">Summary</label><input id="gl-et" class="field-input" value="${esc(pet?.exercise?.title||'')}" placeholder="e.g. 60 min walk/day" /></div>
-    <div class="field"><label class="field-label">Details</label><textarea id="gl-ed" class="field-input" rows="2" placeholder="e.g. Morning walk, fetch in the park">${esc(pet?.exercise?.desc||'')}</textarea></div>
+    <div class="field"><label class="field-label">Summary</label><input id="gl-et" class="field-input" value="${esc(pet?.exercise?.title || '')}" placeholder="e.g. 60 min walk/day" /></div>
+    <div class="field"><label class="field-label">Details</label><textarea id="gl-ed" class="field-input" rows="2">${esc(pet?.exercise?.desc || '')}</textarea></div>
   `, async () => {
     await API.updatePet(petId, {
       foodTitle: document.getElementById('gl-ft').value.trim(),
@@ -2253,19 +1814,11 @@ function showEditGuidelinesModal(petId) {
     showToast('Guidelines updated ✓');
     navigate(state.currentPage);
   }, 'Save Guidelines');
-
-  // Attach autocomplete for food ingredients and activities
-  setTimeout(() => {
-    if (window.AC) {
-      AC.attach(document.getElementById('gl-ft'), 'ingredient');
-      AC.attach(document.getElementById('gl-et'), 'activity');
-    }
-  }, 100);
 }
 
 // ─── ADD REMINDER MODAL ───────────────────────────────────────────────────────
 function showAddReminderModal(petId) {
-  const catOpts = Object.entries(CATEGORY_META).map(([k,v]) =>
+  const catOpts = Object.entries(CATEGORY_META).map(([k, v]) =>
     `<option value="${k}">${v.icon} ${v.label}</option>`
   ).join('');
 
@@ -2276,10 +1829,8 @@ function showAddReminderModal(petId) {
       <label class="field-label">Category</label>
       <select id="ar-cat" class="field-input">${catOpts}</select>
     </div>
-    <div class="field"><label class="field-label">Title *</label>
-      <input id="ar-title" class="field-input" placeholder="e.g. Rabies booster" /></div>
-    <div class="field"><label class="field-label">Details</label>
-      <input id="ar-meta" class="field-input" placeholder="e.g. Dr. Sen · City Animal Clinic" /></div>
+    <div class="field"><label class="field-label">Title *</label><input id="ar-title" class="field-input" placeholder="e.g. Rabies booster" /></div>
+    <div class="field"><label class="field-label">Details</label><input id="ar-meta" class="field-input" placeholder="e.g. Dr. Sen · City Animal Clinic" /></div>
     <div class="field">
       <label class="field-label">Due Date</label>
       <input id="ar-duedate" type="date" class="field-input" min="${today}" />
@@ -2321,28 +1872,12 @@ function showAddReminderModal(petId) {
     showToast('Reminder added 🔔');
     renderReminders();
   }, 'Add Reminder');
-
-  // Attach autocomplete based on category
-  setTimeout(() => {
-    if (!window.AC) return;
-    const catEl = document.getElementById('ar-cat');
-    const titleEl = document.getElementById('ar-title');
-    const updateAC = () => {
-      const cat = catEl?.value || '';
-      if (cat === 'vaccine') AC.attach(titleEl, 'vaccine');
-      else if (cat === 'med') AC.attach(titleEl, 'medicine');
-      else if (cat === 'deworm') AC.attach(titleEl, 'medicine');
-      else AC.close();
-    };
-    updateAC();
-    catEl?.addEventListener('change', updateAC);
-  }, 100);
 }
 
 // ─── ADD RECORD MODAL ─────────────────────────────────────────────────────────
 function showAddRecordModal(petId, defaultType) {
   const typeOpts = RECORD_TYPES.map(t =>
-    `<option value="${t.key}" ${t.key===defaultType?'selected':''}>${t.label}</option>`
+    `<option value="${t.key}" ${t.key === defaultType ? 'selected' : ''}>${t.label}</option>`
   ).join('');
 
   openModal('Add Record', `
@@ -2350,13 +1885,9 @@ function showAddRecordModal(petId, defaultType) {
       <label class="field-label">Type</label>
       <select id="rec-type" class="field-input">${typeOpts}</select>
     </div>
-    <div class="field"><label class="field-label">Title *</label>
-      <input id="rec-title" class="field-input" placeholder="e.g. Rabies vaccine" /></div>
-    <div class="field"><label class="field-label">Details / Notes</label>
-      <textarea id="rec-meta" class="field-input" rows="2" placeholder="e.g. Administered Feb 12, 2026"></textarea></div>
-    <div class="field"><label class="field-label">Doctor / Vet</label>
-      <input id="rec-doctor" class="field-input" placeholder="e.g. Dr. Priya Sen" /></div>
-    <div id="toxic-warn" style="display:none;background:var(--danger-tint);border:1px solid rgba(231,74,74,0.4);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--danger);margin-top:6px">⚠️ Possible toxic ingredient detected! Double-check before giving to your pet.</div>
+    <div class="field"><label class="field-label">Title *</label><input id="rec-title" class="field-input" placeholder="e.g. Rabies vaccine" /></div>
+    <div class="field"><label class="field-label">Details / Notes</label><textarea id="rec-meta" class="field-input" rows="2" placeholder="e.g. Administered Feb 12, 2026"></textarea></div>
+    <div class="field"><label class="field-label">Doctor / Vet</label><input id="rec-doctor" class="field-input" placeholder="e.g. Dr. Priya Sen" /></div>
   `, async () => {
     const title = document.getElementById('rec-title').value.trim();
     if (!title) { showToast('Title is required', 'error'); throw new Error('Title required'); }
@@ -2372,38 +1903,11 @@ function showAddRecordModal(petId, defaultType) {
     showToast('Record added 📋');
     renderRecords();
   }, 'Add Record');
-
-  // Attach autocomplete for title based on type
-  setTimeout(() => {
-    if (!window.AC) return;
-    const typeEl = document.getElementById('rec-type');
-    const titleEl = document.getElementById('rec-title');
-    const metaEl = document.getElementById('rec-meta');
-    const warnEl = document.getElementById('toxic-warn');
-
-    const updateAC = () => {
-      const type = typeEl?.value || '';
-      if (type === 'vaccinations') AC.attach(titleEl, 'vaccine');
-      else if (type === 'prescriptions') AC.attach(titleEl, 'medicine');
-      else if (type === 'treatments') AC.attach(titleEl, 'medicine');
-      else AC.close();
-    };
-    updateAC();
-    typeEl?.addEventListener('change', updateAC);
-
-    // Toxic check on meta field
-    metaEl?.addEventListener('input', () => {
-      if (!warnEl) return;
-      const toxic = AC.checkToxic(metaEl.value);
-      warnEl.style.display = toxic ? 'block' : 'none';
-      if (toxic) warnEl.textContent = `⚠️ "${toxic}" is toxic to pets! Do not include in food or medication.`;
-    });
-  }, 100);
 }
 
 // ─── Utilities ────────────────────────────────────────────────────────────────
 function esc(str) {
-  return String(str ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 function darkenColor(hex) {
@@ -2412,7 +1916,7 @@ function darkenColor(hex) {
     const r = Math.max(0, (n >> 16) - 50);
     const g = Math.max(0, ((n >> 8) & 0xff) - 50);
     const b = Math.max(0, (n & 0xff) - 50);
-    return `#${((r<<16)|(g<<8)|b).toString(16).padStart(6,'0')}`;
+    return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, '0')}`;
   } catch { return hex; }
 }
 
