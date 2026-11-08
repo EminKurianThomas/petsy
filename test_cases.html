@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Petsy – Test Cases</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    :root {
+      --brand:        #1B5E47;
+      --brand-light:  #2D7A5E;
+      --brand-soft:   #D6EDE3;
+      --accent:       #FF6B35;
+      --pass-bg:      #DCFCE7;
+      --pass-text:    #15803D;
+      --fail-bg:      #FEE2E2;
+      --fail-text:    #B91C1C;
+      --pending-bg:   #FEF9C3;
+      --pending-text: #854D0E;
+      --border:       #E2E8F0;
+      --header-bg:    #0F3D2E;
+      --header-text:  #D6EDE3;
+      --row-alt:      #F7FAF8;
+      --shadow:       0 4px 24px rgba(27, 94, 71, 0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #F0F4F1 0%, #E8EFE9 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+      color: #111E1A;
+    }
+
+    .page {
+      max-width: 1360px;
+      margin: 0 auto;
+    }
+
+    /* ── COVER SECTION ── */
+    .cover {
+      background: linear-gradient(135deg, #0F3D2E 0%, #1B5E47 60%, #2D7A5E 100%);
+      border-radius: 16px 16px 0 0;
+      padding: 36px 40px 28px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .cover-logo {
+      width: 54px;
+      height: 54px;
+      background: white;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .cover-title {
+      flex: 1;
+    }
+
+    .cover-title h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+      letter-spacing: -0.5px;
+    }
+
+    .cover-title p {
+      font-size: 13px;
+      color: #D6EDE3;
+      font-weight: 400;
+    }
+
+    .cover-meta {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 6px 16px;
+      font-size: 12px;
+      color: #D6EDE3;
+      min-width: 360px;
+    }
+
+    .cover-meta .label {
+      font-weight: 600;
+      color: #A3D9C4;
+      white-space: nowrap;
+    }
+
+    .cover-meta .value {
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    /* ── STATS SUMMARY BAR ── */
+    .stats-bar {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 40px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      font-size: 12.5px;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stat-label {
+      color: #546B62;
+      font-weight: 500;
+    }
+
+    .stat-value {
+      font-weight: 700;
+      color: #111E1A;
+    }
+
+    .stat-badge {
+      background: var(--pass-bg);
+      color: var(--pass-text);
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 11.5px;
+    }
+
+    /* ── TABLE CONTAINER ── */
+    .table-wrap {
+      background: #ffffff;
+      border-radius: 0 0 16px 16px;
+      overflow-x: auto;
+      box-shadow: var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+
+    thead tr {
+      background: var(--header-bg);
+    }
+
+    thead th {
+      padding: 13px 14px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 11.5px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--header-text);
+      border-right: 1px solid #1c523e;
+      white-space: nowrap;
+    }
+
+    thead th:last-child { border-right: none; }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+
+    tbody tr:nth-child(even) { background: var(--row-alt); }
+    tbody tr:hover { background: #eef7f3; }
+
+    tbody td {
+      padding: 12px 14px;
+      vertical-align: top;
+      border-right: 1px solid var(--border);
+      line-height: 1.55;
+      color: #334155;
+    }
+
+    tbody td:last-child { border-right: none; }
+
+    /* ── BADGES ── */
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .badge-pass    { background: var(--pass-bg);    color: var(--pass-text); }
+    .badge-fail    { background: var(--fail-bg);    color: var(--fail-text); }
+    .badge-pending { background: var(--pending-bg); color: var(--pending-text); }
+
+    /* ── REQ ID chips ── */
+    .req-chip {
+      display: inline-block;
+      background: var(--brand-soft);
+      color: var(--brand);
+      border: 1px solid #b5decb;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      white-space: nowrap;
+    }
+
+    /* ── TC ID ── */
+    .tc-id {
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--brand);
+    }
+
+    /* ── STEPS ── */
+    .steps ol {
+      padding-left: 16px;
+      margin: 0;
+    }
+    .steps ol li { margin-bottom: 3px; }
+
+    /* ── FOOTER ── */
+    .footer {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .footer span { color: var(--brand); font-weight: 600; }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .cover { border-radius: 0; }
+      .table-wrap { border-radius: 0; box-shadow: none; }
+    }
+
+    @media (max-width: 900px) {
+      .cover { flex-direction: column; }
+      .cover-meta { min-width: unset; }
+      .stats-bar { flex-wrap: wrap; gap: 16px; padding: 12px 20px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="cover-logo">🐾</div>
+    <div class="cover-title">
+      <h1>Writing Test Cases</h1>
+      <p>Functional &amp; Integration Test Plan — Petsy Mobile Application</p>
+    </div>
+    <div class="cover-meta">
+      <span class="label">Project Name:</span>    <span class="value">Petsy — Smart Pet Health Tracker</span>
+      <span class="label">Module Name:</span>      <span class="value">Auth / Pet Profile / Reminders / Health Records / Weight Tracking / Care Intelligence / Settings</span>
+      <span class="label">Test Designed by:</span> <span class="value">Student Name / Reg No</span>
+      <span class="label">Test Reviewed by:</span> <span class="value">Faculty / Guide Name</span>
+    </div>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-label">Total Test Cases:</span>
+      <span class="stat-value">18</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Passed:</span>
+      <span class="stat-badge">18 Pass</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Failed:</span>
+      <span class="stat-value" style="color: #64748b;">0</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Pending:</span>
+      <span class="stat-value" style="color: #64748b;">0</span>
+    </div>
+    <div class="stat-item" style="margin-left: auto;">
+      <span class="stat-label">Pass Rate:</span>
+      <span class="stat-value" style="color: var(--pass-text);">100%</span>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Requirements ID</th>
+          <th>Test Case ID</th>
+          <th>Test Scenario Name</th>
+          <th>Test Pre-requisite</th>
+          <th>Steps to Execute</th>
+          <th>Test Data</th>
+          <th>Expected Result</th>
+          <th>Actual Result</th>
+          <th>Test Status</th>
+          <th>Date of Execution</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- TC 01 -->
+        <tr>
+          <td><span class="req-chip">Auth 1.0</span></td>
+          <td><span class="tc-id">TC_Auth_1.0</span></td>
+          <td>User Registration – Valid Details</td>
+          <td>Petsy application running in browser/Expo; no existing account for test email.</td>
+          <td class="steps"><ol>
+            <li>Launch Petsy app and tap <strong>Sign Up</strong> tab on AuthScreen</li>
+            <li>Enter Full Name, valid email, and password &ge; 6 characters</li>
+            <li>Enter identical password in <strong>Confirm Password</strong> field</li>
+            <li>Observe password strength meter indicates Strong</li>
+            <li>Tap <strong>Create Account</strong> button</li>
+          </ol></td>
+          <td>Name: Sarah Jenkins<br>Email: sarah.j@petsycare.io<br>Password: PetOwner@2026<br>Confirm: PetOwner@2026</td>
+          <td>Firebase Auth user created; user document initialized in Firestore (<code>users/{uid}</code>); user logged in and redirected to Home Dashboard.</td>
+          <td>Account created; user document stored in Firestore; redirected to Home Screen with personalized greeting.</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+          <td>16-10-2026</td>
+        </tr>
+
+        <!-- TC 02 -->
+        <tr>
+          <td><span class="req-chip">Auth 1.1</span></td>
+          <td><span class="tc-id">TC_Auth_1.1</span></td>
+          <td>Registration – Invalid Email Format Validation</td>
+          <td>AuthScreen open on <strong>Sign Up</strong> tab.</td>
+          <td class="steps"><ol>
+            <li>Select <strong>Sign Up</strong> tab</li>
+            <li>Enter name "Sarah Jenkins"</li>
+            <li>Enter email without valid domain extension (e.g. <code>sarah.jenkins@</code>)</li>
+            <li>Fill valid password and matching confirmation</li>
+            <li>Tap <strong>Create Account</strong></li>
+          </ol></td>
+          <td>Name: Sarah Jenkins<br>Email: sarah.jenkins@<br>Password: PetOwner@2026</td>
+          <td>Client validation triggers; error banner displays: "Please enter a valid email address"; form submission blocked.</td>
+          <td>Validation error displayed as expected; no API request fired; form not submitted.</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+          <td>16-10-2026</td>
+        </tr>
+
+        <!-- TC 03 -->
+        <tr>
+          <td><span class="req-chip">Auth 1.2</span></td>
+          <td><span class="tc-id">TC_Auth_1.2</span></td>
+          <td>Registration – Password Mismatch &amp; Minimum Length (&lt; 6 chars)</td>
+          <td>AuthScreen open on <strong>Sign Up</strong> tab; valid name and email entered.</td>
+          <td class="steps"><ol>
+            <li>Enter valid name and email</li>
+            <li>Enter password with &lt; 6 characters (e.g. "pet1")</li>
+            <li>Tap <strong>Create Account</strong> to verify length check</li>
+            <li>Update password to "pet1234" and confirm password to "dog9999"</li>
+            <li>Tap <strong>Create Account</strong> to verify mismatch check</li>
+          </ol></td>
+          <td>Email: sarah.j@petsycare.io<br>Password: pet1 (then pet1234)<br>Confirm: dog9999</td>
+          <td>Displays "Password must be at least 6 characters" on first attempt, and "Passwords do not match" on second attempt.</td>
+          <td>Respective validation errors displayed inline; form submission blocked.</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+          <td>16-10-2026</td>
+        </tr>
+
+        <!-- TC 04 -->
+        <tr>
+          <td><span class="req-chip">Auth 2.0</span></td>
+          <td><span class="tc-id">TC_Auth_2.0</span></td>
+          <td>User Sign In – Valid Registered Credentials</td>
+          <td>User account exists in Firebase Auth; app open on <strong>Sign In</strong> tab.</td>
+          <td class="steps"><ol>
+            <li>Tap <strong>Sign In</strong> tab on AuthScreen</li>
+            <li>Enter registered email and correct password</li>
+            <li>Tap <strong>Sign In</strong> button</li>
+            <li>Verify user state loads from Firestore</li>
+          </ol></td>
+          <td>Email: sarah.j@petsycare.io<br>Password: PetOwner@2026</td>
+          <td>User authenticated; pets, reminders, and records fetched from Firestore into PetsContext; redirected to Home Screen.</td>
+          <td>Authenticated successfully; user profile and active pet data loaded; Home Screen displayed with greeting and user avatar.</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+          <td>16-10-2026</td>
+        </tr>
+
+        <!-- TC 05 -->
+        <tr>
+          <td><span class="req-chip">Auth 2.1</span></td>
+          <td><span class="tc-id">TC_Auth_2.1</span></td>
+          <td>User Sign In – Incorrect Password Authentication Failure</td>
+          <td>Registered user account exists; app open on <strong>Sign In</strong> tab.</td>
+          <td class="steps"><ol>
+            <li>Open <strong>Sign In</strong> tab</li>
+            <li>Enter registered email</li>
+            <li>Enter incorrect password</li>
+            <li>Tap <strong>Sign In</strong> button</li>
+          </ol></td>
+          <td>Email: sarah.j@petsycare.io<br>Password: WrongPassword99!</td>
+          <td>Firebase Auth rejects authentication; error alert displayed: "Incorrect password. Please try again."; user remains on sign-in screen.</td>
+          <td>Error banner displayed with expected message; unauthorized access prevented.</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+          <td>16-10-2026</td>
+        </tr>
+
+        <!-- TC 06 -->
+        <tr>
+          <td><span class="req-chip">Pet 3.0</span></td>
+          <td><span class="tc-id">TC_Pet_3.0</span></td>
+          <td>Add Pet Profile – Valid Pet Creation with Clinical Details</td>
+          <td>User logged in; on Home or Profile screen.</td>
+          <td class="steps"><ol>
+            <li>Tap <strong>Add Pet</strong> button (or '+' chip in PetSwitcher)</li>
+            <li>Select avatar emoji (🐶)</li>
+            <li>Enter Pet Name "Milo"</li>
+            <li>Select Species "Dog", enter Breed "Golden Retriever"</li>
+            <li>Select Gender "Male", enter Age "2 yrs 4 mo"</li>
+            <li>Enter Weight "28.5" kg</li>
+            <li>Enter Microchip ID, Insurance Policy, and Emergency Vet contact</li>
+            <li>Tap <strong>Save pet</strong></li>
+          </ol></td>
+          <td>Name: Milo<br>Species: Dog<br>Breed: Golden Retriever<br>Gender: Male<br>Age: 2 yrs 4 mo<br>Weight: 28.5 kg<br>Microchip: 985141002345678<br>Emergency Vet: Dr. Sen (080-23456789)</td>
+          <td>Pet profile created in Firestore <code>users/{uid}/pets</code>; <code>activePetId</code> updated; modal closes; Milo displayed as active pet across dashboard.</td>
+          <td>Pet profile saved to Firestore; avatar, breed, and weight displayed on Home and Profile screens.</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+          <td>16-10-2026</td>
+        </tr>
+
+        <!-- TC 07 -->
+        <tr>
+          <td><span class="req-chip">Pet 3.1</span></td>
+          <td><span class="tc-id">TC_Pet_3.1</span></td>
+          <td>Multi-Pet Switching – Active Pet Context Synchronization</td>
+          <td>User has &ge; 2 registered pets (e.g. Milo the Dog and Nala the Cat).</td>
+          <td class="steps"><ol>
+            <li>Open Home Dashboard with Milo active</li>
+            <li>Tap "Nala 🐱" avatar chip in the top PetSwitcher bar</li>
+            <li>Observe active pet change on Dashboard, Reminders tab, and Records tab</li>
+            <li>Verify species-specific care protocols and health statistics update to Cat</li>
+          </ol></td>
+          <td>Switch Target: Nala (Cat, Siamese, 4.2 kg)</td>
+          <td><code>activePetId</code> updated in PetsContext and Firestore; UI dynamically switches to Nala's profile, feline vaccine guidelines, and feline reminders.</td>
+          <td>Active pet switched immediately; feline care protocols and Nala's reminders loaded seamlessly without page reload.</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+          <td>16-10-2026</td>
+        </tr>
+
+        <!-- TC 08 -->
+        <tr>
+          <td><span class="req-chip">Pet 3.2</span></td>
+          <td><span class="tc-id">TC_Pet_3.2</span></td>
+          <td>Delete Pet Profile – Cascade Cleanup of Reminders &amp; Records</td>
+          <td>User logged in; target pet exists with associated reminders and medical records.</td>
+          <td class="steps"><ol>
+            <li>Navigate to <strong>Profile</strong> tab</li>
+            <li>Scroll to Danger Zone and tap <strong>Delete Pet Profile</strong></li>
+            <li>Confirm deletion in the confirmation alert dialog</li>
+            <li>Verify Firestore database and local state</li>
+          </ol></td>
+          <td>Target Pet: "Testing Pet"<br>ID: <code>pet_temp_test</code></td>
+          <td>Pet deleted from Firestore; all linked reminders and records referencing <code>petId</code> removed; active pet safely falls back to remaining profile.</td>
+          <td>Pet document and child records purged from Firestore; active pet updated to remaining profile without crash.</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+          <td>16-10-2026</td>
+        </tr>
+
+        <!-- TC 09 -->
+        <tr>
+          <td><span class="req-chip">Weight 4.0</span></td>
+          <td><span class="tc-id">TC_Weight_4.0</span></td>
+          <td>Log Pet Weight – Auto Evaluation &amp; Dynamic Plan Generation</td>
+          <td>Active pet selected (Milo: Golden Retriever, current weight: 28.5 kg).</td>
+          <td class="steps"><ol>
+            <li>Tap <strong>Log Weight</strong> on Home or Profile screen</li>
+            <li>Input new weight value "35.0" kg</li>
+            <li>Observe live evaluation badge updates to "Overweight"</li>
+            <li>Tap <strong>Save Weight</strong> button</li>
+            <li>Inspect updated Food and Exercise cards on Home Screen</li>
+          </ol></td>
+          <td>Pet: Golden Retriever<br>Weight: 35.0 kg (Standard ideal range: 27–34 kg)</td>
+          <td>System calculates condition as "Overweight"; generates "Portion Control Plan" and "Low-Impact Joint Friendly Workout"; appends to <code>weightHistory</code>.</td>
+          <td>Weight updated to 35.0 kg; status badge marked "Overweight"; tailored diet &amp; workout guidance automatically updated.</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+          <td>16-10-2026</td>
+        </tr>
+
+        <!-- TC 10 -->
+        <tr>
+          <td><span class="req-chip">Weight 4.1</span></td>
+          <td><span class="tc-id">TC_Weight_4.1</span></td>
+          <td>Growth Chart Visualization – Chronological Weight Trend Rendering</td>
+          <td>Pet has &ge; 3 historical weight data points logged.</td>
+          <td class="steps"><ol>
+            <li>Open <strong>Profile</strong> tab</li>
+            <li>Scroll to <strong>Growth &amp; Weight</strong> section</li>
+            <li>Inspect SVG GrowthChart curve, data points, and min/max weight labels</li>
+          </ol></td>
+          <td>Weight History: [24.0, 26.2, 28.5, 35.0] kg</td>
+          <td>SVG line chart renders smooth polyline curve connecting coordinates; displays lowest/highest values and net growth trend.</td>
+          <td>Growth chart polyline rendered smoothly; accurate min/max scale and visual trendline shown.</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+          <td>16-10-2026</td>
+        </tr>
+
+        <!-- TC 11 -->
+        <tr>
+          <td><span class="req-chip">Rem 5.0</span></td>
+          <td><span class="tc-id">TC_Rem_5.0</span></td>
+          <td>Add Preventative Reminder – Custom Category &amp; Due Date</td>
+          <td>Active pet selected; Reminders screen open.</td>
+          <td class="steps"><ol>
+            <li>Open <strong>Reminders</strong> tab and tap '+' floating action button (FAB)</li>
+            <li>Select category <em>Vaccine</em> (💉)</li>
+            <li>Enter title "Annual Rabies Booster"</li>
+            <li>Select Due preset <em>Next Week</em> and Recurring <em>Yearly</em></li>
+            <li>Tap <strong>Create reminder</strong> button</li>
+          </ol></td>
+          <td>Category: vaccine<br>Title: Annual Rabies Booster<br>Due: Next Week<br>Recurring: Yearly</td>
+          <td>Reminder added to Firestore <code>users/{uid}/reminders</code> with status "upcoming"; appears in Reminders list and Home care schedule card.</td>
+          <td>Reminder created; displayed under Vaccine filter chip with upcoming badge; visible on Dashboard.</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+          <td>16-10-2026</td>
+        </tr>
+
+        <!-- TC 12 -->
+        <tr>
+          <td><span class="req-chip">Rem 5.1</span></td>
+          <td><span class="tc-id">TC_Rem_5.1</span></td>
+          <td>Filter &amp; Sort Reminders – Filter Chips &amp; Priority Ordering</td>
+          <td>Active pet has reminders across multiple categories (Vaccine, Meds, Grooming).</td>
+          <td class="steps"><ol>
+            <li>Open <strong>Reminders</strong> tab</li>
+            <li>Tap <strong>Meds</strong> category filter chip</li>
+            <li>Observe displayed reminder cards</li>
+            <li>Tap sort option <strong>By Status</strong></li>
+          </ol></td>
+          <td>Filter: Meds<br>Sort: Status (Overdue &rarr; Upcoming &rarr; Done)</td>
+          <td>Non-medication reminders filtered out; items ordered by priority with overdue tasks placed first.</td>
+          <td>Filter applied immediately; only medication alerts displayed in correct status order.</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+          <td>16-10-2026</td>
+        </tr>
+
+        <!-- TC 13 -->
+        <tr>
+          <td><span class="req-chip">Rem 5.2</span></td>
+          <td><span class="tc-id">TC_Rem_5.2</span></td>
+          <td>Reminder Status Transition – Cycle Upcoming &rarr; Done &rarr; Overdue</td>
+          <td>At least one reminder exists with status "upcoming".</td>
+          <td class="steps"><ol>
+            <li>Tap the status badge / paw icon on an upcoming reminder</li>
+            <li>Observe badge style and state transition to "done"</li>
+            <li>Tap badge again to cycle to "overdue"</li>
+            <li>Verify status persistence in Firestore</li>
+          </ol></td>
+          <td>Reminder: "Monthly Heartworm Chewable"<br>Initial Status: upcoming</td>
+          <td>Status cycles from "upcoming" to "done" (green badge), then to "overdue" (red badge); change synced to Firestore.</td>
+          <td>Status cycled seamlessly with visual badge update; Firestore document updated in real time.</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+          <td>16-10-2026</td>
+        </tr>
+
+        <!-- TC 14 -->
+        <tr>
+          <td><span class="req-chip">Rec 6.0</span></td>
+          <td><span class="tc-id">TC_Rec_6.0</span></td>
+          <td>Add Clinical Health Record – Category Tab &amp; Vet Metadata</td>
+          <td>Active pet selected; Records tab open.</td>
+          <td class="steps"><ol>
+            <li>Open <strong>Records</strong> tab and tap '+' floating action button (FAB)</li>
+            <li>Select Type <em>Surgeries</em></li>
+            <li>Enter Title "Dental Scaling &amp; Polishing"</li>
+            <li>Enter Details "Ultrasonic tartar removal; mild gingivitis noted; gum antiseptic applied"</li>
+            <li>Enter Doctor / Clinic "Dr. Sen, Central Pet Hospital"</li>
+            <li>Tap <strong>Save record</strong></li>
+          </ol></td>
+          <td>Type: surgeries<br>Title: Dental Scaling &amp; Polishing<br>Details: Ultrasonic tartar removal<br>Doctor: Dr. Sen, Central Pet Hospital</td>
+          <td>Record saved to Firestore <code>users/{uid}/records</code>; displayed under Surgeries tab with timestamp and clinic details.</td>
+          <td>Record stored successfully; displayed in Surgeries sub-tab with attending vet badge and details.</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+          <td>16-10-2026</td>
+        </tr>
+
+        <!-- TC 15 -->
+        <tr>
+          <td><span class="req-chip">Rec 6.1</span></td>
+          <td><span class="tc-id">TC_Rec_6.1</span></td>
+          <td>Export Digital Medical File – Clipboard Compilation for Vet Sharing</td>
+          <td>Active pet has records across vaccinations, medications, and surgeries.</td>
+          <td class="steps"><ol>
+            <li>Open <strong>Records</strong> screen</li>
+            <li>Tap <strong>Copy All</strong> button in top header</li>
+            <li>Observe confirmation alert</li>
+            <li>Paste clipboard content to verify format</li>
+          </ol></td>
+          <td>Pet: Milo<br>Action: Copy All records</td>
+          <td>App aggregates all health records grouped by category; copies structured text to clipboard; displays "Copied!" notification.</td>
+          <td>Formatted plain-text summary copied to clipboard with clean section headings and bullet points.</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+          <td>16-10-2026</td>
+        </tr>
+
+        <!-- TC 16 -->
+        <tr>
+          <td><span class="req-chip">Care 7.0</span></td>
+          <td><span class="tc-id">TC_Care_7.0</span></td>
+          <td>Species-Specific Vaccine Schedule Reference Modal</td>
+          <td>User on Home Dashboard with Dog or Cat active.</td>
+          <td class="steps"><ol>
+            <li>On Home Screen, tap <strong>Vaccine Schedule</strong> card</li>
+            <li>Inspect the immunization guidance modal</li>
+            <li>Verify Core (DHPP, Rabies) vs Non-Core (Bordetella, Lyme) classifications</li>
+          </ol></td>
+          <td>Species: Dog<br>Vaccine Guide: Canine Immunization</td>
+          <td>Modal displays verified canine vaccine schedule divided into Core and Non-Core with recommended booster intervals.</td>
+          <td>Modal opens smoothly; correct species-specific immunization protocols rendered with age schedules.</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+          <td>16-10-2026</td>
+        </tr>
+
+        <!-- TC 17 -->
+        <tr>
+          <td><span class="req-chip">Care 7.1</span></td>
+          <td><span class="tc-id">TC_Care_7.1</span></td>
+          <td>Nutrition Guide – Safe &amp; Toxic Foods Inspection</td>
+          <td>Active pet selected on Home Screen.</td>
+          <td class="steps"><ol>
+            <li>Scroll to <strong>Nutrition &amp; Food Safety</strong> section on Home Screen</li>
+            <li>Toggle between "Safe Foods" and "Foods to Avoid" tabs</li>
+            <li>Inspect toxic food warning cards (e.g. Chocolate, Grapes, Onions)</li>
+          </ol></td>
+          <td>Item: "Grapes &amp; Raisins"<br>Species: Dog</td>
+          <td>Toxic foods flagged with high-visibility danger tags and clinical explanation of hazards (e.g. acute renal failure).</td>
+          <td>Food items clearly displayed with green safe badges and red danger warnings with explanatory notes.</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+          <td>16-10-2026</td>
+        </tr>
+
+        <!-- TC 18 -->
+        <tr>
+          <td><span class="req-chip">Set 8.0</span></td>
+          <td><span class="tc-id">TC_Set_8.0</span></td>
+          <td>UI Appearance – Instant Theme Switching &amp; Persistence</td>
+          <td>App running; user on Settings tab.</td>
+          <td class="steps"><ol>
+            <li>Navigate to <strong>Settings</strong> tab</li>
+            <li>Under Appearance section, tap <strong>Dark Mode</strong></li>
+            <li>Observe background and text color transition</li>
+            <li>Tap <strong>Light Mode</strong></li>
+            <li>Restart app to verify AsyncStorage theme restoration</li>
+          </ol></td>
+          <td>Theme modes: Dark Mode (<code>#0D1714</code>), Light Mode (<code>#F0F4F1</code>)</td>
+          <td>Theme toggles seamlessly across entire component tree; preference persisted in storage; restored on relaunch.</td>
+          <td>Instant theme transition with zero layout jitter; theme preference retained after restart.</td>
+          <td><span class="badge badge-pass">Pass</span></td>
+          <td>16-10-2026</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>Petsy Test Case Document &nbsp;|&nbsp; <span>18 Test Cases (18 Passed / 0 Failed)</span> &nbsp;|&nbsp; Generated: 16-10-2026 &nbsp;|&nbsp; &copy; 2026 Petsy Health Tracker</p>
+  </div>
+
+</div>
+</body>
+</html>
