@@ -1,0 +1,58 @@
+flowchart TD
+    classDef default fill:#fff,stroke:#000,stroke-width:2px,color:#000;
+    classDef attr fill:#fff,stroke:#000,stroke-width:2px,color:#000,shape:ellipse;
+    classDef rel fill:#fff,stroke:#000,stroke-width:2px,color:#000,shape:diamond;
+    
+    User["User"]
+    Pet["Pet"]
+    Reminder["Reminder"]
+    Record["Record"]
+    
+    Owns{"Owns"}:::rel
+    HasRem{"Has"}:::rel
+    HasRec{"Has"}:::rel
+    
+    User ---|1| Owns
+    Owns ---|M| Pet
+    Pet ---|1| HasRem
+    HasRem ---|M| Reminder
+    Pet ---|1| HasRec
+    HasRec ---|M| Record
+    
+    u_id(["user_id"]):::attr
+    u_name(["name"]):::attr
+    u_email(["email"]):::attr
+    u_act(["activePetId"]):::attr
+    
+    u_id --- User
+    u_name --- User
+    u_email --- User
+    u_act --- User
+    
+    p_id(["pet_id"]):::attr
+    p_name(["name"]):::attr
+    p_age(["age"]):::attr
+    p_breed(["breed"]):::attr
+    
+    p_id --- Pet
+    p_name --- Pet
+    p_age --- Pet
+    p_breed --- Pet
+    
+    rem_id(["rem_id"]):::attr
+    rem_title(["title"]):::attr
+    rem_status(["status"]):::attr
+    rem_date(["date"]):::attr
+    
+    rem_id --- Reminder
+    rem_title --- Reminder
+    rem_status --- Reminder
+    rem_date --- Reminder
+    
+    rec_id(["rec_id"]):::attr
+    rec_title(["title"]):::attr
+    rec_date(["date"]):::attr
+    
+    rec_id --- Record
+    rec_title --- Record
+    rec_date --- Record
